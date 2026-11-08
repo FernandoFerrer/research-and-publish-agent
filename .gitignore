@@ -1,0 +1,238 @@
+# research-and-publish-agent
+# Public repository: exclude credentials, private data, local state, and builds.
+# IMPORTANT: .gitignore does NOT protect tracked files or Git history.
+# Review every file before committing; use secret scanning and push protection.
+
+# -----------------------------------------------------------------------------
+# 1. Secrets and machine-specific configuration (at any directory level)
+# -----------------------------------------------------------------------------
+.env
+.env.*
+.envrc
+*.env
+*.env.*
+*.local
+*.local.*
+
+# Only sanitized examples with placeholder values may be committed.
+!.env.example
+!.env.sample
+!.env.template
+!*.env.example
+!*.env.sample
+!*.env.template
+
+**/secrets/
+**/.secrets/
+**/private/
+**/.ssh/
+**/.aws/
+**/.azure/
+**/.kube/
+**/.config/gcloud/
+**/.docker/config.json
+**/.npmrc
+**/.pypirc
+**/.netrc
+**/kubeconfig
+
+*secret*.json
+*secret*.yaml
+*secret*.yml
+*secret*.toml
+*credential*.json
+*credential*.yaml
+*credential*.yml
+*token*.json
+*service-account*.json
+*service_account*.json
+*oauth*.json
+
+*.pem
+*.key
+*.p8
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+id_ecdsa*
+id_dsa*
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+
+# Dagster instance config can contain secrets; publish a sanitized example.
+/dagster.yaml
+
+# -----------------------------------------------------------------------------
+# 2. Python environments, dependencies, caches, and test artifacts
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+env/
+ENV/
+__pypackages__/
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+.eggs/
+*.whl
+build/
+dist/
+.pip-cache/
+.uv-cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.pytype/
+.pyright/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+*.prof
+*.pstats
+
+# Keep dependency lockfiles tracked (for example, uv.lock or poetry.lock).
+
+# -----------------------------------------------------------------------------
+# 3. Dify, Dagster, RAG, vector stores, and runtime state
+# -----------------------------------------------------------------------------
+/.dagster/
+/.dagster_home/
+/dagster_home/
+/dagster_storage/
+/dagster_logs/
+/.dify/
+/dify/docker/volumes/
+/docker/volumes/
+/volumes/
+/chroma/
+/chroma_db/
+/qdrant_storage/
+/faiss_index/
+/lancedb/
+/vectorstore/
+/vector_store/
+/storage/
+
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.db
+*.db-*
+*.duckdb
+*.duckdb.wal
+*.faiss
+*.index
+*.pkl
+*.pickle
+*.joblib
+
+# Keep reviewed Dify workflow definitions, schemas, and orchestration code.
+
+# -----------------------------------------------------------------------------
+# 4. Downloaded research, datasets, logs, and generated local outputs
+# -----------------------------------------------------------------------------
+/data/
+/datasets/
+/downloads/
+/papers/
+/raw/
+/scrapes/
+/research_cache/
+/source_cache/
+/artifacts/
+/outputs/
+/runs/
+/cache/
+/tmp/
+/temp/
+/logs/
+/exports/
+/captures/
+
+*.log
+*.log.*
+*.har
+*.csv
+*.tsv
+*.jsonl
+*.ndjson
+*.parquet
+*.arrow
+*.feather
+*.xlsx
+*.xls
+*.docx
+*.pptx
+*.pdf
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.rar
+
+# Approved PUBLIC/SYNTHETIC sample data can be added explicitly with:
+# git add -f path/to/reviewed-sample.csv
+# Do not force-add credentials, user data, or copyrighted source documents.
+
+# -----------------------------------------------------------------------------
+# 5. Generated websites and frontend dependencies
+# -----------------------------------------------------------------------------
+/site/
+/.next/
+/.nuxt/
+/.astro/
+/.vite/
+/node_modules/
+/.npm/
+/.yarn/cache/
+/.pnpm-store/
+
+# Keep GitHub Pages source, such as docs/, public/, articles/, content/,
+# .github/workflows/, and site configuration files tracked when appropriate.
+
+# -----------------------------------------------------------------------------
+# 6. Notebook checkpoints, local IDE files, OS artifacts, and editor backups
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+.vscode/
+.idea/
+.fleet/
+*.code-workspace
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# -----------------------------------------------------------------------------
+# 7. Local backups and accidental exports
+# -----------------------------------------------------------------------------
+*.bak
+*.backup
+*.orig
+*.tmp
+*.temp
+*.old
+*.sql.gz
+*.dump
+
+# Security note: before the first public push, inspect `git status`,
+# `git ls-files`, and the full Git history. Enable GitHub secret scanning/
+# push protection, and use a secret scanner in pre-commit and CI.
