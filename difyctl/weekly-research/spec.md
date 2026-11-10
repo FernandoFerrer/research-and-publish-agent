@@ -1,6 +1,6 @@
 # Weekly Research and Knowledge Publishing Agent: spec
 
-Status: approved by the user on 2026-11-08. An unpublished prototype Workflow draft exists (app ID `7c62ae56-b3c5-4a47-a25f-c85281788561`), but it is incomplete and its astronomy search is failing. A knowledge base has been created by the user and initialized; a scoped proxy rule permits its Knowledge API route. Workflow-triggered ingestion has not been built or tested.
+Status: approved by the user on 2026-11-08. The research-only Workflow (app ID `7c62ae56-b3c5-4a47-a25f-c85281788561`) has a published version and an incomplete draft. A five-topic draft run succeeded on 2026-11-10 after earlier astronomy-search failures. A knowledge base has been created by the user and initialized; a scoped proxy rule permits its Knowledge API route. Workflow-triggered ingestion has not been built or tested. The user instructed us to preserve their Dify server changes and use the current draft as the baseline.
 
 ## Goal and mode
 

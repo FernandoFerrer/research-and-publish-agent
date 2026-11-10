@@ -1,6 +1,7 @@
 import unittest
+import json
 
-from source_metadata import validate_metadata
+from source_metadata import check_source, validate_metadata
 
 
 class SourceMetadataTests(unittest.TestCase):
@@ -29,6 +30,15 @@ class SourceMetadataTests(unittest.TestCase):
             validate_metadata(self.selected, self.text, self.proposed, "2026-11-08", 7, "2026-11-09")
         self.selected["role"] = "support"
         self.assertIsNone(validate_metadata(self.selected, self.text, self.proposed, "2026-11-08", 7, "2026-11-09")["publication_date"])
+
+    def test_bad_metadata_is_rejected_without_stopping_other_sources(self):
+        result = check_source(self.selected, self.text, json.dumps(self.proposed), "2026-11-08", 7, "2026-11-09")
+        self.assertEqual(result["status"], "accepted")
+        self.proposed["publication_date"] = None
+        result = check_source(self.selected, self.text, json.dumps(self.proposed), "2026-11-08", 7, "2026-11-09")
+        self.assertEqual(result["status"], "rejected")
+        self.assertNotIn("text", result)
+        self.assertEqual(check_source(self.selected, self.text, "invalid JSON", "2026-11-08", 7, "2026-11-09")["status"], "rejected")
 
 
 if __name__ == "__main__":

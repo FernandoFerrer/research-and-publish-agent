@@ -1,0 +1,709 @@
+app:
+  description: Draft weekly research, evidence validation, and cited content workflow.
+  icon: None
+  icon_background: null
+  icon_type: emoji
+  mode: workflow
+  name: Weekly Research and Knowledge Publishing
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+    version: null
+kind: app
+site:
+  chat_color_theme: null
+  chat_color_theme_inverted: false
+  copyright: null
+  custom_disclaimer: ''
+  default_language: es-ES
+  description: null
+  icon: null
+  icon_background: null
+  icon_type: emoji
+  input_placeholder: null
+  privacy_policy: null
+  show_workflow_steps: true
+  title: Weekly Research and Knowledge Publishing
+  use_icon_as_answer_icon: false
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload: {}
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: end
+      id: candidates-end
+      source: candidates
+      sourceHandle: source
+      target: end
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: tool
+      id: queries-search_ai
+      source: queries
+      sourceHandle: source
+      target: search_ai
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: tool
+      id: queries-source-search_astronomy-target
+      source: queries
+      sourceHandle: source
+      target: search_astronomy
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: tool
+      id: queries-source-search_healthcare-target
+      source: queries
+      sourceHandle: source
+      target: search_healthcare
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: tool
+      id: queries-source-search_science-target
+      source: queries
+      sourceHandle: source
+      target: search_science
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: code
+        targetType: tool
+      id: queries-source-search_technology-target
+      source: queries
+      sourceHandle: source
+      target: search_technology
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: code
+      id: search_ai-source-candidates-target
+      source: search_ai
+      sourceHandle: source
+      target: candidates
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: code
+      id: search_astronomy-source-candidates-target
+      source: search_astronomy
+      sourceHandle: source
+      target: candidates
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: code
+      id: search_healthcare-source-candidates-target
+      source: search_healthcare
+      sourceHandle: source
+      target: candidates
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: code
+      id: search_science-source-candidates-target
+      source: search_science
+      sourceHandle: source
+      target: candidates
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: code
+      id: search_technology-candidates
+      source: search_technology
+      sourceHandle: source
+      target: candidates
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: start
+        targetType: code
+      id: start-queries
+      source: start
+      sourceHandle: source
+      target: queries
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        code: "\"\"\"Canonical source identity for draft ingestion planning and tests.\"\
+          \"\"\nfrom urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit\n\
+          TRACKING_KEYS = frozenset({'fbclid', 'gclid', 'mc_cid', 'mc_eid'})\n\ndef\
+          \ canonical_url(url):\n    if not isinstance(url, str):\n        raise ValueError('URL\
+          \ must be a string')\n    parts = urlsplit(url.strip())\n    host = (parts.hostname\
+          \ or '').lower().rstrip('.')\n    if parts.scheme.lower() not in {'http',\
+          \ 'https'} or not host or parts.username or parts.password:\n        raise\
+          \ ValueError('Expected an HTTP(S) URL without credentials')\n    try:\n\
+          \        port = parts.port\n    except ValueError as exc:\n        raise\
+          \ ValueError('Invalid URL port') from exc\n    scheme = parts.scheme.lower()\n\
+          \    authority = f'[{host}]' if ':' in host else host\n    if port and (scheme,\
+          \ port) not in {('http', 80), ('https', 443)}:\n        authority += f':{port}'\n\
+          \    query = [(key, value) for key, value in parse_qsl(parts.query, keep_blank_values=True)\
+          \ if not key.lower().startswith('utm_') and key.lower() not in TRACKING_KEYS]\n\
+          \    return urlunsplit((scheme, authority, parts.path or '/', urlencode(sorted(query),\
+          \ doseq=True), ''))\n\ndef canonical_doi(doi):\n    if not doi:\n      \
+          \  return None\n    if not isinstance(doi, str):\n        raise ValueError('DOI\
+          \ must be a string')\n    value = doi.strip().lower()\n    for prefix in\
+          \ ('https://doi.org/', 'http://doi.org/', 'https://dx.doi.org/', 'doi:'):\n\
+          \        if value.startswith(prefix):\n            value = value[len(prefix):].strip()\n\
+          \            break\n    if not value.startswith('10.') or '/' not in value\
+          \ or any((c.isspace() for c in value)):\n        raise ValueError('Invalid\
+          \ DOI')\n    return value\n\ndef is_duplicate(url, doi, existing):\n   \
+          \ \"\"\"Match URL or DOI against all previously indexed sources supplied\
+          \ by caller.\n\n    Caller must fully paginate and serialize ingestion runs.\
+          \ If it cannot do so,\n    it must fail closed; this function does not make\
+          \ concurrent creates atomic.\n    \"\"\"\n    normalized_url = canonical_url(url)\n\
+          \    normalized_doi = canonical_doi(doi)\n    if not isinstance(existing,\
+          \ list):\n        raise ValueError('Existing sources must be a complete\
+          \ list')\n    for source in existing:\n        if not isinstance(source,\
+          \ dict):\n            raise ValueError('Invalid existing source')\n    \
+          \    old_url = source.get('source_url')\n        old_doi = source.get('doi')\n\
+          \        if not old_url and (not old_doi):\n            raise ValueError('Existing\
+          \ source has no identity; refusing unsafe deduplication')\n        if old_url\
+          \ and canonical_url(old_url) == normalized_url:\n            return True\n\
+          \        if normalized_doi and old_doi and (canonical_doi(old_doi) == normalized_doi):\n\
+          \            return True\n    return False\n\n\"\"\"Validate discovery results\
+          \ and prevent a model from inventing source URLs.\"\"\"\nTOPICS = frozenset({'AI',\
+          \ 'science', 'healthcare', 'astronomy', 'technology'})\n\ndef normalize_results(results_by_topic):\n\
+          \    if not isinstance(results_by_topic, dict) or set(results_by_topic)\
+          \ != TOPICS:\n        raise ValueError('Search results must cover all five\
+          \ topics')\n    candidates = {}\n    for topic in sorted(TOPICS):\n    \
+          \    results = results_by_topic[topic]\n        if not isinstance(results,\
+          \ list):\n            raise ValueError('Search failed or returned an invalid\
+          \ list')\n        for row in results:\n            if not isinstance(row,\
+          \ dict):\n                continue\n            try:\n                url\
+          \ = canonical_url(row.get('href'))\n            except (ValueError, TypeError):\n\
+          \                continue\n            title = row.get('title')\n      \
+          \      if not isinstance(title, str) or not title.strip():\n           \
+          \     continue\n            candidate = candidates.setdefault(url, {'source_url':\
+          \ url, 'title': title.strip(), 'topics': [], 'snippet': row.get('body',\
+          \ '')})\n            if topic not in candidate['topics']:\n            \
+          \    candidate['topics'].append(topic)\n    return list(candidates.values())\n\
+          \ndef select_candidates(candidates, selection, limit=10):\n    if not isinstance(candidates,\
+          \ list) or not isinstance(selection, list):\n        raise ValueError('Invalid\
+          \ research selection')\n    if type(limit) is not int or limit < 1 or limit\
+          \ > 20:\n        raise ValueError('Invalid selection limit')\n    by_url\
+          \ = {item['source_url']: item for item in candidates}\n    chosen = []\n\
+          \    seen = set()\n    for item in selection:\n        if not isinstance(item,\
+          \ dict):\n            raise ValueError('Invalid selected item')\n      \
+          \  url = canonical_url(item.get('source_url'))\n        topic = item.get('topic')\n\
+          \        role = item.get('role')\n        scores = item.get('scores')\n\
+          \        if role not in {'main', 'support', 'highlight'} or not isinstance(scores,\
+          \ dict):\n            raise ValueError('Missing research role or ranking\
+          \ scores')\n        for field in ('relevance', 'novelty', 'credibility',\
+          \ 'reader_interest'):\n            score = scores.get(field)\n         \
+          \   if type(score) is not int or not 1 <= score <= 5:\n                raise\
+          \ ValueError('Invalid research score')\n        if url not in by_url or\
+          \ topic not in by_url[url]['topics'] or url in seen:\n            raise\
+          \ ValueError('Selected source not found in topic search results, or repeated')\n\
+          \        seen.add(url)\n        chosen.append({'source_url': url, 'source_title':\
+          \ by_url[url]['title'], 'topic': topic, 'role': role, 'scores': scores})\n\
+          \    if not chosen or len(chosen) > limit or sum((item['role'] == 'main'\
+          \ for item in chosen)) != 1:\n        raise ValueError('Research selection\
+          \ is empty or exceeds its limit')\n    return chosen\n\ndef main(ai, science,\
+          \ healthcare, astronomy, technology):\n    return {\"candidates\": normalize_results({\"\
+          AI\": ai, \"science\": science, \"healthcare\": healthcare, \"astronomy\"\
+          : astronomy, \"technology\": technology})}\n"
+        code_language: python3
+        outputs:
+          candidates:
+            children: null
+            type: array[object]
+        selected: false
+        title: Validate and combine search results
+        type: code
+        variables:
+        - value_selector:
+          - search_ai
+          - json
+          variable: ai
+        - value_selector:
+          - search_science
+          - json
+          variable: science
+        - value_selector:
+          - search_healthcare
+          - json
+          variable: healthcare
+        - value_selector:
+          - search_astronomy
+          - json
+          variable: astronomy
+        - value_selector:
+          - search_technology
+          - json
+          variable: technology
+        version: '1'
+      height: 52
+      id: candidates
+      position:
+        x: 1262.5812058350552
+        y: 205.81447368421053
+      positionAbsolute:
+        x: 1262.5812058350552
+        y: 205.81447368421053
+      selected: true
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - start
+          - as_of_date
+          value_type: any
+          variable: as_of_date
+        - value_selector:
+          - start
+          - window_days
+          value_type: any
+          variable: window_days
+        - value_selector:
+          - candidates
+          - candidates
+          value_type: any
+          variable: candidates
+        selected: false
+        title: Prototype skeleton output
+        type: end
+        version: '1'
+      height: 140
+      id: end
+      position:
+        x: 1557.9676890016003
+        y: 205.81447368421053
+      positionAbsolute:
+        x: 1557.9676890016003
+        y: 205.81447368421053
+      selected: true
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "\"\"\"Validate the research window and construct fixed-topic search\
+          \ queries.\"\"\"\nfrom datetime import date, timedelta\nTOPIC_TERMS = {'AI':\
+          \ 'artificial intelligence research development', 'science': 'scientific\
+          \ research discovery', 'healthcare': 'healthcare clinical research', 'astronomy':\
+          \ 'astronomy astrophysics discovery', 'technology': 'technology research\
+          \ innovation'}\n\ndef build_search_queries(as_of_date, window_days):\n \
+          \   if not isinstance(as_of_date, str):\n        raise ValueError('Expected\
+          \ an ISO research date')\n    try:\n        end = date.fromisoformat(as_of_date)\n\
+          \    except ValueError as exc:\n        raise ValueError('Invalid research\
+          \ date') from exc\n    if end.isoformat() != as_of_date or type(window_days)\
+          \ is not int or (not 1 <= window_days <= 31):\n        raise ValueError('Expected\
+          \ YYYY-MM-DD and a window of 1–31 days')\n    start = end - timedelta(days=window_days\
+          \ - 1)\n    return {topic: f'{terms} after:{start.isoformat()} before:{(end\
+          \ + timedelta(days=1)).isoformat()}' for topic, terms in TOPIC_TERMS.items()}\n\
+          \ndef main(as_of_date, window_days):\n    if type(window_days) is float\
+          \ and window_days.is_integer():\n        window_days = int(window_days)\n\
+          \    queries = build_search_queries(as_of_date, window_days)\n    return\
+          \ {\"ai\": queries[\"AI\"], \"science\": queries[\"science\"], \"healthcare\"\
+          : queries[\"healthcare\"], \"astronomy\": queries[\"astronomy\"], \"technology\"\
+          : queries[\"technology\"]}\n"
+        code_language: python3
+        outputs:
+          ai:
+            children: null
+            type: string
+          astronomy:
+            children: null
+            type: string
+          healthcare:
+            children: null
+            type: string
+          science:
+            children: null
+            type: string
+          technology:
+            children: null
+            type: string
+        selected: false
+        title: Prepare dated research queries
+        type: code
+        variables:
+        - value_selector:
+          - start
+          - as_of_date
+          variable: as_of_date
+        - value_selector:
+          - start
+          - window_days
+          variable: window_days
+        version: '1'
+      height: 52
+      id: queries
+      position:
+        x: 344.7460526315789
+        y: 120
+      positionAbsolute:
+        x: 344.7460526315789
+        y: 120
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        plugin_id: langgenius/duckduckgo
+        plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+        provider_id: langgenius/duckduckgo/duckduckgo
+        provider_name: langgenius/duckduckgo/duckduckgo
+        provider_type: builtin
+        selected: false
+        title: Search AI research
+        tool_configurations:
+          backend:
+            type: constant
+            value: ''
+          max_results:
+            type: constant
+            value: 5
+          proxy_server:
+            type: constant
+            value: ''
+          require_summary:
+            type: constant
+            value: false
+        tool_label: DuckDuckGo Search
+        tool_name: ddgo_search
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#queries.ai#}}'
+        type: tool
+        version: '1'
+      height: 166
+      id: search_ai
+      position:
+        x: 664.0105263157895
+        y: -265.2894736842106
+      positionAbsolute:
+        x: 664.0105263157895
+        y: -265.2894736842106
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        plugin_id: langgenius/duckduckgo
+        plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+        provider_id: langgenius/duckduckgo/duckduckgo
+        provider_name: langgenius/duckduckgo/duckduckgo
+        provider_type: builtin
+        selected: false
+        title: Search astronomy
+        tool_configurations:
+          backend:
+            type: constant
+            value: ''
+          max_results:
+            type: constant
+            value: 5
+          proxy_server:
+            type: constant
+            value: ''
+          require_summary:
+            type: constant
+            value: false
+        tool_label: DuckDuckGo Search
+        tool_name: ddgo_search
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#queries.astronomy#}}'
+        type: tool
+        version: '1'
+      height: 166
+      id: search_astronomy
+      position:
+        x: 664.0105263157895
+        y: 426.4802631578948
+      positionAbsolute:
+        x: 664.0105263157895
+        y: 426.4802631578948
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        plugin_id: langgenius/duckduckgo
+        plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+        provider_id: langgenius/duckduckgo/duckduckgo
+        provider_name: langgenius/duckduckgo/duckduckgo
+        provider_type: builtin
+        selected: false
+        title: Search healthcare
+        tool_configurations:
+          backend:
+            type: constant
+            value: ''
+          max_results:
+            type: constant
+            value: 5
+          proxy_server:
+            type: constant
+            value: ''
+          require_summary:
+            type: constant
+            value: false
+        tool_label: DuckDuckGo Search
+        tool_name: ddgo_search
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#queries.healthcare#}}'
+        type: tool
+        version: '1'
+      height: 166
+      id: search_healthcare
+      position:
+        x: 664.0105263157895
+        y: 205.81447368421053
+      positionAbsolute:
+        x: 664.0105263157895
+        y: 205.81447368421053
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        plugin_id: langgenius/duckduckgo
+        plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+        provider_id: langgenius/duckduckgo/duckduckgo
+        provider_name: langgenius/duckduckgo/duckduckgo
+        provider_type: builtin
+        selected: false
+        title: Search science
+        tool_configurations:
+          backend:
+            type: constant
+            value: ''
+          max_results:
+            type: constant
+            value: 5
+          proxy_server:
+            type: constant
+            value: ''
+          require_summary:
+            type: constant
+            value: false
+        tool_label: DuckDuckGo Search
+        tool_name: ddgo_search
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#queries.science#}}'
+        type: tool
+        version: '1'
+      height: 166
+      id: search_science
+      position:
+        x: 664.0105263157895
+        y: -28.861842105263193
+      positionAbsolute:
+        x: 664.0105263157895
+        y: -28.861842105263193
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        plugin_id: langgenius/duckduckgo
+        plugin_unique_identifier: langgenius/duckduckgo:0.0.14@d7bf08a1363e83bdf0de401d186e45c7b8b70ccee3b414862e52ce69242dbd27
+        provider_id: langgenius/duckduckgo/duckduckgo
+        provider_name: langgenius/duckduckgo/duckduckgo
+        provider_type: builtin
+        selected: false
+        title: Search technology
+        tool_configurations:
+          backend:
+            type: constant
+            value: ''
+          max_results:
+            type: constant
+            value: 5
+          proxy_server:
+            type: constant
+            value: ''
+          require_summary:
+            type: constant
+            value: false
+        tool_label: DuckDuckGo Search
+        tool_name: ddgo_search
+        tool_node_version: '2'
+        tool_parameters:
+          query:
+            type: mixed
+            value: '{{#queries.technology#}}'
+        type: tool
+        version: '1'
+      height: 166
+      id: search_technology
+      position:
+        x: 664.0105263157895
+        y: 675.167105263158
+      positionAbsolute:
+        x: 664.0105263157895
+        y: 675.167105263158
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        selected: false
+        title: Research inputs
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types: []
+          allowed_file_upload_methods: []
+          default: null
+          description: ''
+          hide: false
+          json_schema: null
+          label: As-of date (YYYY-MM-DD)
+          max_length: 10
+          options: []
+          required: true
+          type: text-input
+          variable: as_of_date
+        - allowed_file_extensions: []
+          allowed_file_types: []
+          allowed_file_upload_methods: []
+          default: null
+          description: ''
+          hide: false
+          json_schema: null
+          label: Research window in days
+          max_length: null
+          options: []
+          required: true
+          type: number
+          variable: window_days
+        version: '1'
+      height: 135
+      id: start
+      position:
+        x: 58.98421052631579
+        y: 99
+      positionAbsolute:
+        x: 58.98421052631579
+        y: 99
+      selected: false
+      sourcePosition: null
+      targetPosition: null
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 110.75519078777029
+      y: 323.7812468879676
+      zoom: 0.6559058976692314
+  rag_pipeline_variables: []

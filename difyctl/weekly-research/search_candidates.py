@@ -35,6 +35,8 @@ def select_candidates(candidates, selection, limit=10):
         raise ValueError("Invalid research selection")
     if type(limit) is not int or limit < 1 or limit > 20:
         raise ValueError("Invalid selection limit")
+    if not selection:
+        return []
     by_url = {item["source_url"]: item for item in candidates}
     chosen = []
     seen = set()
@@ -56,6 +58,6 @@ def select_candidates(candidates, selection, limit=10):
         seen.add(url)
         chosen.append({"source_url": url, "source_title": by_url[url]["title"], "topic": topic,
                        "role": role, "scores": scores})
-    if not chosen or len(chosen) > limit or sum(item["role"] == "main" for item in chosen) != 1:
+    if len(chosen) > limit or sum(item["role"] == "main" for item in chosen) != 1:
         raise ValueError("Research selection is empty or exceeds its limit")
     return chosen

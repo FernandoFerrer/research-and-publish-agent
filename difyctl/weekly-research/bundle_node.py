@@ -1,9 +1,4 @@
-"""Build self-contained Python sources for Dify Code nodes during planning.
-
-Dify's code sandbox cannot import files from this repository. Generated node
-code is returned as a string and contains no credentials. It is not imported
-into Dify until the complete workflow plan is ready and approved.
-"""
+"""Build self-contained Python sources for Dify Code nodes."""
 
 import ast
 from pathlib import Path
@@ -37,7 +32,7 @@ CONFIGS = {
     ),
     "source_metadata": (
         ("source_metadata.py",),
-        '''import json\ndef main(selected, text, proposed_json, as_of_date, window_days, retrieval_date):\n    return {"source": validate_metadata(selected, text, json.loads(proposed_json), as_of_date, window_days, retrieval_date)}\n''',
+        '''def main(selected, text, proposed_json, as_of_date, window_days, retrieval_date):\n    if type(window_days) is float and window_days.is_integer():\n        window_days = int(window_days)\n    return {"source": check_source(selected, text, proposed_json, as_of_date, window_days, retrieval_date)}\n''',
     ),
     "document_page": (
         ("document_page.py",),

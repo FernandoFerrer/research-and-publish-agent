@@ -21,6 +21,9 @@ class SearchCandidateTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             normalize_results(self.results)
 
+    def test_no_suitable_sources_returns_empty_selection(self):
+        self.assertEqual(select_candidates(normalize_results(self.results), []), [])
+
 
 if __name__ == "__main__":
     unittest.main()

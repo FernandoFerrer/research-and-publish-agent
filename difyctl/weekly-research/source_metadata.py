@@ -1,6 +1,7 @@
 """Check extracted source metadata against fetched public source text."""
 
 from datetime import date, datetime, timedelta
+import json
 import re
 
 
@@ -53,3 +54,11 @@ def validate_metadata(selected, text, proposed, as_of_date, window_days, retriev
     return {"source_title": title.strip(), "source_url": selected.get("source_url"),
             "publication_date": published, "retrieval_date": retrieval_date, "topic": selected.get("topic"),
             "doi": doi, "text": text}
+
+
+def check_source(selected, text, proposed_json, as_of_date, window_days, retrieval_date):
+    try:
+        source = validate_metadata(selected, text, json.loads(proposed_json), as_of_date, window_days, retrieval_date)
+    except (TypeError, ValueError) as exc:
+        return {"status": "rejected", "source_url": selected.get("source_url"), "reason": str(exc)}
+    return {"status": "accepted", **source}

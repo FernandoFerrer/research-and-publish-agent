@@ -1,24 +1,10 @@
 # Weekly Research: implementation plan (draft)
 
-Status: the user explicitly authorized building the first prototype. App ID: `7c62ae56-b3c5-4a47-a25f-c85281788561`. Build the slices sequentially, leaving the application unpublished. The full node configuration and integration tests are still being developed; no draft should be represented as complete until all required behavior is tested.
+The current Dify draft searches, ranks sources with Ollama, and fetches and checks source metadata. Invalid or unverifiable source metadata produces a rejected record so other sources can continue. A failed fetch or model call produces a null in the same position as its selected source. Accepted sources are not yet validated claims. The current draft is saved in `app.yml`; the published version is saved in `live.yml`.
 
-## Slice 1: skeleton
+Draft run `649ddaeb-fc44-490f-8ec4-3f6c6bff202d` completed after two selected sites failed to load. Both fetched-source entries were null, so this test did not demonstrate a usable source.
 
-Create one Workflow app named `Weekly Research and Knowledge Publishing`. Start node `start` v1 has required `as_of_date` (text) and `window_days` (number). End node `end` v1 returns both inputs, with no article or validated-content output. Connect `start` directly to `end`. Check the DSL, import it, test the full draft with `as_of_date=2026-11-08`, `window_days=7`, and confirm the returned values. Export the draft to `app.yml` and `dify/workflows/weekly-research.yml`. This slice deliberately cannot produce publishable content; it is only a skeleton.
-
-Slice 1 passed: draft run `c8dac9ce-e887-4b0b-bebb-29211c881d3a` returned the two inputs. DSL check reported no issues.
-
-## Slice 2: first research search
-
-Connect `start` → `queries` → `search_ai` → `end`. `queries` is a v1 Python Code node using the exact self-contained `bundle_node.bundle("queries")` source, with inputs `as_of_date` and `window_days` from `start` and string outputs `ai`, `science`, `healthcare`, `astronomy` and `technology`. `search_ai` uses the installed DuckDuckGo `ddgo_search` node data, with `query` from `queries.ai`, `max_results=5`, `require_summary=false`, empty optional proxy and backend. End returns the search node's `json` array as `search_results` and retains both inputs. The slice does not produce publishable content. Check the DSL, test `queries` and `search_ai` individually, then test a full run on the 2026-11-08 seven-day window; verify results contain public URLs. If the configured tool fails, report the failure rather than silently substituting another tool.
-
-Slice 2 passed: the `queries` and `search_ai` node tests succeeded; full draft run `ff63bad7-5856-4999-bb84-3c2597b09dcf` returned five public search results. Several results were older than the requested window, so source dates must be checked after retrieval.
-
-## Slice 3: all requested research areas
-
-Add sequential DuckDuckGo nodes `search_science`, `search_healthcare`, `search_astronomy`, and `search_technology`, each configured exactly like `search_ai` except for its query selector. Add `candidates`, a v1 Python Code node with `bundle_node.bundle("discovery")`, consuming all five tool `json` arrays and returning `candidates` as `array[object]`. Connect the nodes in that order after `search_ai` and return the merged candidates from `end`. The slice remains research-only and produces no publishable article. Check and import the DSL; test each node and then run the full draft. Reject an invalid or failed topic search rather than inventing results.
-
-Slice 3 is blocked: the DSL check and import passed, and `search_science` and `search_healthcare` passed node tests. `search_astronomy` failed twice, including with a broader query: DuckDuckGo's plugin reported no results after three attempts and its diagnostics included rate limits, forbidden responses and CAPTCHA pages. `search_technology`, `candidates`, and the full five-topic draft have not yet passed tests. The local DSL export matches the current draft; do not treat it as a completed workflow.
+Still needed: ingestion with safe deduplication, knowledge retrieval, independent claim validation and cited content. The shared knowledge base can also be written by other applications or direct API clients, so a per-app concurrency limit alone cannot guarantee deduplication.
 
 ## Proposed data flow
 
