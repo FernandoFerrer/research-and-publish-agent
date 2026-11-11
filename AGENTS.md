@@ -1,20 +1,21 @@
 # AGENTS.md
 
-## Project
-Build a weekly research and publishing system covering AI, science, healthcare, astronomy, and technology. Publish one main story plus brief highlights on GitHub Pages, then send an email with the link.
+## Goal
+Build a simple, reliable weekly research and publishing system covering AI, science, healthcare, astronomy, and technology. Use public information only. Publish to GitHub Pages and notify by email.
 
 ## Architecture
-- **Dify** orchestrates three agents:
-  1. **Research:** Find and rank recent public sources; trigger ingestion of selected documents and metadata into the vector database.
-  2. **Validation:** Extract factual claims, retrieve evidence with RAG, and verify important claims against **at least two independent, trusted sources**. Request more research or reject unsupported claims.
+- **Dify** coordinates three agents:
+  1. **Research:** Find and rank sources; ingest relevant documents into the knowledge base.
+  2. **Validation:** Extract claims, use RAG, and verify important claims with at least two independent, trusted sources. Reject unsupported claims.
   3. **Content:** Write cited articles and generate the static website using validated claims only.
-- **Dagster** schedules weekly runs.
-- Use deterministic code for ingestion, checks, deployment, and email. Keep feedback loops bounded; do not add agents or frameworks without a clear need.
+- **Dagster** triggers weekly runs. Use deterministic steps for ingestion, checks, deployment, and email.
 
-## Development Rules
-- Prefer simple, modular, testable code and minimal dependencies.
-- Keep source URLs, publication dates, and evidence traceable. Two reports of the same study are not independent confirmation.
-- Never invent facts or citations. Revalidate any new factual claims introduced during writing.
-- Use only public, synthetic, or anonymized data. Never commit secrets, `.env` files, or private data; use environment variables.
-- Check citations, links, site build, and accessibility before publishing. Send email only after successful deployment.
-- Add focused tests for critical logic; fail clearly and safely when validation or publishing fails.
+## Working Rules
+- **Follow the human developer's instructions.** Do only the requested scope; ask before major changes.
+- **Build one module at a time.** Deliver a working, tested result before starting the next module.
+- **Use the installed `difyctl` skill** to build, inspect, and test Dify workflows, knowledge bases, and integrations where supported. Read its instructions first; do not guess commands.
+- **Use the `ponytail` skill** to keep solutions simple and remove unnecessary complexity.
+- Prefer the simplest effective design: minimal agents, dependencies, resource use, and abstractions. Less is more.
+- Keep retries bounded, sources traceable, and failures clear. Never invent facts or citations.
+- Test relevant changes. Verify citations, links, and website output before publishing; send email only after successful deployment.
+- Never commit secrets or private data. Use environment variables for credentials.
