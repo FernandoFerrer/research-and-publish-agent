@@ -19,3 +19,31 @@ Build a simple, reliable weekly research and publishing system covering AI, scie
 - Keep retries bounded, sources traceable, and failures clear. Never invent facts or citations.
 - Test relevant changes. Verify citations, links, and website output before publishing; send email only after successful deployment.
 - Never commit secrets or private data. Use environment variables for credentials.
+
+### Execution and Approval Policy
+
+- Follow the human developer's instructions as the highest priority within the project.
+- Once a task is authorized, execute it end-to-end without requesting repeated approval.
+- Create specifications and plans internally when needed, but keep them concise.
+- For small changes, skip unnecessary planning and proceed directly.
+- Implement one module at a time, always maintaining a working solution.
+- Test changes and correct errors autonomously.
+- Request additional approval only for ambiguous requirements, destructive operations, publishing, or changes outside the authorized scope.
+- Report the results concisely, including any limitations.
+
+**Principle: Minimize bureaucracy, not quality.**
+
+## Simplicity and Resource Efficiency
+
+Follow the **Ponytail** philosophy: less is more. Prefer the simplest solution that works reliably.
+
+- **No unnecessary files:** Remove unnecessary files as soon as possible.
+- **Minimal repository:** Keep only essential source code, configuration, and reusable tests. Use temporary directories for intermediate artifacts.
+- **Use existing tools:** Prefer `difyctl` capabilities over custom scripts or additional dependencies.
+- **Avoid overengineering:** No unnecessary abstractions, frameworks, agents, or infrastructure.
+- **Optimize token usage:** Read only relevant files. Avoid repeatedly loading full workflows, large files, or extensive documentation.
+- **Incremental development:** Implement one module at a time. Keep each increment working and tested.
+- **Autonomous execution:** Complete authorized tasks without unnecessary approval requests. Always follow the human developer's instructions.
+- **Concise reporting:** Report only what changed, test results, and any unresolved issues.
+
+**Before creating any file or component, ask: Is it essential for the working solution? If not, do not create it.**
