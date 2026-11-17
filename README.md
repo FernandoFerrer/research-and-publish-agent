@@ -10,10 +10,12 @@ Built as a capstone project for the **Carnegie Mellon University Agentic AI Prog
 
 ## Watch a test run
 
-Run the draft with streaming enabled to see workflow and node events as they happen. Replace the date and window as needed:
+In the Dify draft, enable **Testing mode (placeholder website)** to exercise the workflow with one search result per topic, a short placeholder story, and one requested illustration. The downloaded page is marked as test content. Leave it unchecked for a normal run. Test mode still calls the models and image tool, so its duration depends on those services.
+
+Run the test mode draft with streaming enabled to see workflow and node events as they happen. Replace the date and window as needed:
 
 ```bash
-difyctl test console_app workflow --app-id 7c62ae56-b3c5-4a47-a25f-c85281788561 --inputs '{"as_of_date":"2026-11-13","window_days":7}' --stream --json
+difyctl test console_app workflow --app-id 7c62ae56-b3c5-4a47-a25f-c85281788561 --inputs '{"as_of_date":"2026-11-13","window_days":7,"testing_mode":true}' --stream --json
 ```
 
 Each line is a JSON event. `node_started` and `node_finished` show the agent stages and their inputs, outputs, status, and errors; `workflow_finished` contains the final outputs. Treat the trace as potentially sensitive because it includes inputs and results.

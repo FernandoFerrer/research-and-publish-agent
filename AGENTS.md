@@ -22,13 +22,11 @@ Build a simple, reliable weekly research and publishing system covering AI, scie
 
 ### Execution and Approval Policy
 
-- Follow the human developer's instructions as the highest priority within the project.
-- Once a task is authorized, execute it end-to-end without requesting repeated approval.
-- Create specifications and plans internally when needed, but keep them concise.
-- For small changes, skip unnecessary planning and proceed directly.
-- Implement one module at a time, always maintaining a working solution.
-- Test changes and correct errors autonomously.
-- Request additional approval only for ambiguous requirements, destructive operations, publishing, or changes outside the authorized scope.
+- Follow the human developer's instructions over project and skill guidance, within applicable higher-priority instructions.
+- Execute authorized requests end-to-end, including Dify server updates and integrations, without repeated approval or unnecessary intermediate steps.
+- Use only checks needed for the requested change; fix failures autonomously and use a simpler supported route when a tool fails. Do not claim success if a technical blocker remains; report it and ask only for information needed to proceed.
+- Ask for decisions only when requirements or authorization are unclear. Explicit authorization covers publishing and other requested actions.
+- Minimize token use: read only what is needed, avoid repeated inspection, and keep plans and reports brief.
 - Report the results concisely, including any limitations.
 
 **Principle: Minimize bureaucracy, not quality.**
