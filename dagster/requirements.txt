@@ -1,0 +1,4 @@
+dagster>=1.11,<2
+dagster-webserver>=1.11,<2
+python-dotenv>=1,<2
+requests>=2,<3

@@ -1,0 +1,675 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: Image Generation Workflow
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/comfyui:0.3.13@e879e9a0d4f9d602b169fa91f5daee681f2e515a8a08da023b4af6b5b72f7f26
+    version: null
+kind: app
+site:
+  chat_color_theme: null
+  chat_color_theme_inverted: false
+  copyright: null
+  custom_disclaimer: ''
+  default_language: es-ES
+  description: null
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  input_placeholder: null
+  privacy_policy: null
+  show_workflow_steps: true
+  title: Image Generation Workflow
+  use_icon_as_answer_icon: false
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload: {}
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: start
+        targetType: tool
+      id: 1794857692720-source-1794857716374-target
+      source: '1794857692720'
+      sourceHandle: source
+      target: '1794857716374'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        iteration_id: null
+        loop_id: null
+        sourceType: tool
+        targetType: end
+      id: 1794857716374-source-1794857746948-target
+      source: '1794857716374'
+      sourceHandle: source
+      target: '1794857746948'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: Inicio
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: img_generation_prompt
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: img_generation_prompt
+        - default: '1024'
+          hint: ''
+          label: width
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: width
+        - default: '1024'
+          hint: ''
+          label: height
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: height
+      height: 135
+      id: '1794857692720'
+      position:
+        x: 76
+        y: 261
+      positionAbsolute:
+        x: 76
+        y: 261
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: exported from ComfyUI workflow
+            ja_JP: ComfyUI よりエクスポートされたワークフロー
+            pt_BR: exported from ComfyUI workflow
+            zh_Hans: 从ComfyUI的工作流中导出
+          input_schema: null
+          label:
+            en_US: Workflow JSON
+            ja_JP: ワークフロー JSON
+            pt_BR: Workflow JSON
+            zh_Hans: Workflow JSON
+          llm_description: ''
+          multiple: false
+          name: workflow_json
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: The input images
+            ja_JP: 入力画像
+            pt_BR: The input images
+            zh_Hans: 输入的图片
+          input_schema: null
+          label:
+            en_US: Input Images
+            ja_JP: Input Images
+            pt_BR: Input Images
+            zh_Hans: 输入的图片
+          llm_description: The input images, used to transfer to the comfyui workflow
+            to generate another image.
+          multiple: false
+          name: images
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: files
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            ja_JP: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            pt_BR: When the workflow has multiple image nodes, enter the ID list of
+              these nodes, and the images will be passed to ComfyUI in the order of
+              the list.
+            zh_Hans: 当工作流有多个图片节点时，输入这些节点的ID列表，图片将按列表顺序传给ComfyUI
+          input_schema: null
+          label:
+            en_US: Image Node ID List
+            ja_JP: Image Node ID List
+            pt_BR: Image Node ID List
+            zh_Hans: 图片节点ID列表
+          llm_description: ''
+          multiple: false
+          name: image_ids
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the seeds in the workflow will be randomized.
+            ja_JP: If enabled, all the seeds in the workflow will be randomized.
+            pt_BR: If enabled, all the seeds in the workflow will be randomized.
+            zh_Hans: If enabled, all the seeds in the workflow will be randomized.
+          input_schema: null
+          label:
+            en_US: Randomize seeds
+            ja_JP: Randomize seeds
+            pt_BR: Randomize seeds
+            zh_Hans: Randomize seeds
+          llm_description: ''
+          multiple: false
+          name: randomize_seed
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If enabled, all the models in the workflow will be downloaded.
+            ja_JP: If enabled, all the models in the workflow will be downloaded.
+            pt_BR: If enabled, all the models in the workflow will be downloaded.
+            zh_Hans: If enabled, all the models in the workflow will be downloaded.
+          input_schema: null
+          label:
+            en_US: Download models
+            ja_JP: Download models
+            pt_BR: Download models
+            zh_Hans: Download models
+          llm_description: ''
+          multiple: false
+          name: enable_download
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        - auto_generate: null
+          default: true
+          form: form
+          human_description:
+            en_US: If you only want to download models, set this to False
+            ja_JP: If you only want to download models, set this to False
+            pt_BR: If you only want to download models, set this to False
+            zh_Hans: If you only want to download models, set this to False
+          input_schema: null
+          label:
+            en_US: Execute Workflow
+            ja_JP: Execute Workflow
+            pt_BR: Execute Workflow
+            zh_Hans: Execute Workflow
+          llm_description: ''
+          multiple: false
+          name: execute_workflow
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: boolean
+        params:
+          enable_download: ''
+          execute_workflow: ''
+          image_ids: ''
+          images: ''
+          randomize_seed: ''
+          workflow_json: ''
+        plugin_id: langgenius/comfyui
+        plugin_unique_identifier: langgenius/comfyui:0.3.13@e879e9a0d4f9d602b169fa91f5daee681f2e515a8a08da023b4af6b5b72f7f26
+        provider_id: langgenius/comfyui/comfyui
+        provider_name: langgenius/comfyui/comfyui
+        provider_show_name: ComfyUI
+        provider_type: builtin
+        selected: false
+        title: Workflow
+        tool_configurations:
+          enable_download:
+            type: constant
+            value: true
+          execute_workflow:
+            type: constant
+            value: true
+          randomize_seed:
+            type: constant
+            value: true
+        tool_description: Run ComfyUI workflow.
+        tool_label: Workflow
+        tool_name: workflow
+        tool_node_version: '2'
+        tool_parameters:
+          image_ids:
+            type: mixed
+            value: null
+          images:
+            type: constant
+            value: null
+          workflow_json:
+            type: mixed
+            value: '{
+
+                "9": {
+
+                  "inputs": {
+
+                    "filename_prefix": "z-image-turbo",
+
+                    "images": [
+
+                      "57:8",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "SaveImage",
+
+                  "_meta": {
+
+                    "title": "Guardar imagen",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.64"
+
+                  }
+
+                },
+
+                "57:30": {
+
+                  "inputs": {
+
+                    "clip_name": "qwen_3_4b.safetensors",
+
+                    "type": "lumina2",
+
+                    "device": "default"
+
+                  },
+
+                  "class_type": "CLIPLoader",
+
+                  "_meta": {
+
+                    "title": "Cargar CLIP",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.73"
+
+                  }
+
+                },
+
+                "57:29": {
+
+                  "inputs": {
+
+                    "vae_name": "ae.safetensors"
+
+                  },
+
+                  "class_type": "VAELoader",
+
+                  "_meta": {
+
+                    "title": "Cargar VAE",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.73"
+
+                  }
+
+                },
+
+                "57:33": {
+
+                  "inputs": {
+
+                    "conditioning": [
+
+                      "57:27",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "ConditioningZeroOut",
+
+                  "_meta": {
+
+                    "title": "Acondicionamiento (Poner a cero)",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.73"
+
+                  }
+
+                },
+
+                "57:8": {
+
+                  "inputs": {
+
+                    "samples": [
+
+                      "57:3",
+
+                      0
+
+                    ],
+
+                    "vae": [
+
+                      "57:29",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "VAEDecode",
+
+                  "_meta": {
+
+                    "title": "Decodificación VAE",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.64"
+
+                  }
+
+                },
+
+                "57:28": {
+
+                  "inputs": {
+
+                    "unet_name": "z_image_turbo_bf16.safetensors",
+
+                    "weight_dtype": "default"
+
+                  },
+
+                  "class_type": "UNETLoader",
+
+                  "_meta": {
+
+                    "title": "Cargar modelo de difusión",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.73"
+
+                  }
+
+                },
+
+                "57:27": {
+
+                  "inputs": {
+
+                    "text": "{{#1794857692720.img_generation_prompt#}}",
+
+                    "clip": [
+
+                      "57:30",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "CLIPTextEncode",
+
+                  "_meta": {
+
+                    "title": "Codificar texto CLIP (Prompt)",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.73"
+
+                  }
+
+                },
+
+                "57:13": {
+
+                  "inputs": {
+
+                    "width": {{#1794857692720.width#}},
+
+                    "height": {{#1794857692720.height#}},
+
+                    "batch_size": 1
+
+                  },
+
+                  "class_type": "EmptySD3LatentImage",
+
+                  "_meta": {
+
+                    "title": "Imagen latente SD3 vacía",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.64"
+
+                  }
+
+                },
+
+                "57:11": {
+
+                  "inputs": {
+
+                    "shift": 3,
+
+                    "sampling": "flow",
+
+                    "model": [
+
+                      "57:28",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "ModelSamplingAuraFlow",
+
+                  "_meta": {
+
+                    "title": "Muestreo de modelo AuraFlow",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.64"
+
+                  }
+
+                },
+
+                "57:3": {
+
+                  "inputs": {
+
+                    "seed": 963146054067204,
+
+                    "steps": 8,
+
+                    "cfg": 1,
+
+                    "sampler_name": "res_multistep",
+
+                    "scheduler": "simple",
+
+                    "denoise": 1,
+
+                    "model": [
+
+                      "57:11",
+
+                      0
+
+                    ],
+
+                    "positive": [
+
+                      "57:27",
+
+                      0
+
+                    ],
+
+                    "negative": [
+
+                      "57:33",
+
+                      0
+
+                    ],
+
+                    "latent_image": [
+
+                      "57:13",
+
+                      0
+
+                    ]
+
+                  },
+
+                  "class_type": "KSampler",
+
+                  "_meta": {
+
+                    "title": "KSampler",
+
+                    "cnr_id": "comfy-core",
+
+                    "ver": "0.3.64"
+
+                  }
+
+                }
+
+              }'
+        type: tool
+      height: 140
+      id: '1794857716374'
+      position:
+        x: 382.5
+        y: 282
+      positionAbsolute:
+        x: 382.5
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1794857716374'
+          - files
+          value_type: array[file]
+          variable: img
+        selected: false
+        title: Salida
+        type: end
+      height: 88
+      id: '1794857746948'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: 84.00000000000011
+      y: 177.50000000000006
+      zoom: 0.9999999999999999
+  rag_pipeline_variables: []

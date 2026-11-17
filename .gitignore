@@ -236,3 +236,6 @@ Desktop.ini
 # Security note: before the first public push, inspect `git status`,
 # `git ls-files`, and the full Git history. Enable GitHub secret scanning/
 # push protection, and use a secret scanner in pre-commit and CI.
+
+# Keep the credential template, but not local credentials.
+!.env.example
