@@ -4,13 +4,13 @@ A weekly research digest covering AI, science, healthcare, astronomy, and techno
 
 The Dify draft searches public sources, then uses research and validation agents to review the results. The Content agent is a tool-enabled Function Calling agent: it may use DuckDuckGo to locate a supplied source, but search-tool output is not publication evidence. It generates a self-contained publication website, and a quality-check node checks its basic structure and source URLs. The workflow returns `index_html`, `website_file`, and `download_url` outputs. The validation agent compares search snippets; it does not independently verify claims. Open `download_url` on the same Dify site to download `index.html` for GitHub Pages; the signed URL is temporary. The digest links to search results; snippets, dates, and claims are not independently verified. Some topics may have no results.
 
-The simplified workflow is saved in `difyctl/weekly-research-and-knowledge-publishing/mvp.yml`. It accepts an as-of date and a research window of 1–31 days. The draft does not automatically deploy the site, schedule weekly runs, or send email.
+The simplified workflow is saved in `difyctl/weekly-research-and-knowledge-publishing/mvp.yml`. It accepts an as-of date and a research window of 1–31 days. The Dify draft includes a GitHub Pages hosting node. It does not schedule weekly runs or send email.
 
 Built as a capstone project for the **Carnegie Mellon University Agentic AI Program**.
 
 ## Watch a test run
 
-In the Dify draft, enable **Testing mode (placeholder website)** to exercise the workflow with one search result per topic, a short placeholder story, and one requested illustration. The downloaded page is marked as test content. Leave it unchecked for a normal run. Test mode still calls the models and image tool, so its duration depends on those services.
+In the Dify draft, enable **Testing mode (placeholder website)** to exercise the workflow with one search result per topic, a short placeholder story, and one requested illustration. The page is marked as test content and the hosting node publishes it to the configured GitHub Pages identifier, replacing the previous page. Leave it unchecked for a normal run. Test mode still calls the models and image tool, so its duration depends on those services.
 
 Run the test mode draft with streaming enabled to see workflow and node events as they happen. Replace the date and window as needed:
 
