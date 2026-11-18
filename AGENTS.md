@@ -7,9 +7,9 @@ Build a simple, reliable weekly research and publishing system covering AI, scie
 - **Dify publishing workflow:** The latest tested production version researches public search results, reviews claims against snippets, writes sourced content, generates a single-page HTML publication, hosts it on GitHub Pages, and sends an email. The website agent can use the separate ComfyUI image-generation workflow. Testing mode can still overwrite the configured page and send email.
 - **Models:** The workflow works with local Ollama models and can be configured for other commercial model providers supported by Dify.
 - **Validation is limited:** Search snippets are not independent verification. RAG and verification against two independent trusted sources remain goals, not established behavior.
-- **Knowledge-base storage:** Separate workflow exports, plans, and Python node code explore source ingestion and deduplication. Integration and indexing checks remain outstanding; this is not part of the saved publishing workflow.
+- **Knowledge-base storage:** Plans and Python node code explore source ingestion and deduplication. Integration and indexing checks remain outstanding; this is not part of the saved publishing workflow.
 - **Dagster:** `dagster/definitions.py` schedules the published Dify workflow for Mondays at 07:00 Europe/Madrid with a seven-day window. It reports workflow status but does not enforce a global single-writer lock. Check the logged Dify run ID before retrying a timeout or lost stream.
-- **Production safety copy:** `production.yml` captures the latest tested published workflow; `draft.yml` matches it at export. Email addresses are placeholders and must be configured in Dify. Later server changes are not automatically synchronized. See `README.md` for setup and local checks.
+- **Production safety copy:** `production.yml` captures the latest tested published workflow. Email addresses are placeholders and must be configured in Dify. Later server changes are not automatically synchronized. See `README.md` for setup and local checks.
 
 ## Working Rules
 - **Follow the human developer's instructions.** Do only the requested scope; ask before major changes.

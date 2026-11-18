@@ -17,9 +17,8 @@ The latest tested production workflow hosts the generated page on GitHub Pages, 
 
 ## 📂 What is in this repository
 
-- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 18 November 2026. `draft.yml` contains the same export. Recipient and reply-to addresses are placeholders; other YAML files are earlier or separate development versions. None are automatically synchronized with the server.
+- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 18 November 2026. Recipient and reply-to addresses are placeholders. The export is not automatically synchronized with the server.
 - `difyctl/image-generation-workflow.yml`: the published image-generation workflow used as a tool by the main workflow.
-- `dify/`: an older Dify app package.
 - `dagster/`: the weekly scheduler and its tests.
 - `difyctl/weekly-research-and-knowledge-publishing/storage_nodes/`: Python code and tests for the separate knowledge-base storage work. The adjacent plans describe its intended behavior and outstanding integration checks.
 - `website_examples/` and `website_styless/`: visual examples and design references, not the deployed website.
