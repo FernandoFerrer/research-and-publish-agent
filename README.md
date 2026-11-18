@@ -4,16 +4,32 @@ This capstone project for the **Carnegie Mellon University Agentic AI Program** 
 
 The main workflow brings together four research and publishing stages:
 
-- 🔎 **Research agent** selects useful public search results and summarizes their supplied snippets with source links.
-- 🔍 **Validation agent** compares the research with the supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
-- ✍️ **Content agent** turns the reviewed research into sourced editorial content for the publication.
-- 🎨 **Website Creation Agent** designs the HTML publication from that content and can use the ComfyUI image-generation tool.
+- 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links. It checks available publication dates against the inclusive research window and flags missing, uncertain or out-of-window dates.
+- 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and flags date issues, contradictions, uncertainty and missing evidence. It looks for original-source evidence and secondary corroboration when supplied, but labels snippet-based material as unverified.
+- ✍️ **Content agent** uses the reviewed research and its search tool to find sources and write the editorial content. It seeks original sources and credible secondary corroboration, attributes findings, and distinguishes preliminary research from established results. It can widen the search to 30 days if coverage is insufficient.
+- 🎨 **Website Creation Agent** turns the editorial content into a single-page HTML publication, preserving its factual content, uncertainty and source links. It can use the ComfyUI image-generation tool to create illustrations.
 
 ## 📍 Current status
 
-The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets, so a human reviews the page's claims, dates, and citations against the sources before sharing.
+The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets.
 
-The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It also returns the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node, but the workflow does not independently verify the deployed page before sending. Separate development work explores storing research sources in a knowledge base.
+The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It also returns the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node. Separate development work explores storing research sources in a knowledge base.
+
+## 🛡️ Safety checkpoint
+
+Checked items are implemented in the saved workflow or scheduler; unchecked items are incomplete or not yet verified. Prompts and snippet checks alone do not guarantee compliance.
+
+- [x] Search public results and instruct agents to treat retrieved text as untrusted data.
+- [x] Check generated HTML structure and source links before creating the publication.
+- [x] Log scheduled workflow progress and failures, including the Dify run ID.
+- [x] Check source dates, credibility and relevance, prioritizing original research and reputable secondary sources.
+- [x] Validate claims against original sources, seek secondary corroboration when available, and identify contradictions, uncertainty and missing evidence.
+- [ ] Use RAG to retrieve supporting evidence and preserve source references.
+- [x] Generate only from validated findings, retain scientific context and limitations, and ensure factual claims have traceable citations.
+- [x] Apply editorial checks for factual consistency, completeness and clarity.
+
+
+These targets will be refined through evaluation. 
 
 ## 📂 What is in this repository
 
