@@ -1,8 +1,8 @@
 # 🔬 Weekly Research and Knowledge Publishing Agent
 
-This capstone project for the **Carnegie Mellon University Agentic AI Program** aims to produce a weekly digest of public research about AI, science, healthcare, astronomy, and technology. Dify runs the research and website-generation workflow; Dagster can start its published version on a schedule.
+This capstone project for the **Carnegie Mellon University Agentic AI Program** aims to produce a weekly digest of public research about AI, science, healthcare, astronomy, and technology. Dify runs the research and website-generation workflow; Dagster can start its published version on a schedule. The workflow works with local Ollama models and can also be configured to use commercial model providers supported by Dify.
 
-The main workflow brings together four agents:
+The main workflow brings together four research and publishing stages:
 
 - 🔎 **Research agent** selects useful public search results and summarizes their supplied snippets with source links.
 - 🔍 **Validation agent** compares the research with the supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
@@ -13,11 +13,11 @@ The main workflow brings together four agents:
 
 The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets, so a human reviews the page's claims, dates, and citations against the sources before sharing.
 
-The Dify draft includes a GitHub Pages hosting step that publishes the generated page to the configured destination. It can also return the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. Separate development work explores storing research sources in a knowledge base.
+The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It also returns the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node, but the workflow does not independently verify the deployed page before sending. Separate development work explores storing research sources in a knowledge base.
 
 ## 📂 What is in this repository
 
-- `difyctl/weekly-research-and-knowledge-publishing/draft.yml`: a saved publishing workflow draft, including website hosting. `mvp.yml` is an earlier simplified version; other YAML files are separate development versions, not automatically synchronized with the server.
+- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 18 November 2026. `draft.yml` contains the same export. Recipient and reply-to addresses are placeholders; other YAML files are earlier or separate development versions. None are automatically synchronized with the server.
 - `difyctl/image-generation-workflow.yml`: the published image-generation workflow used as a tool by the main workflow.
 - `dify/`: an older Dify app package.
 - `dagster/`: the weekly scheduler and its tests.
@@ -26,12 +26,12 @@ The Dify draft includes a GitHub Pages hosting step that publishes the generated
 
 ## 🚀 Set up the workflow
 
-1. Obtain access to a Dify instance and import the saved draft YAML through its app import interface, or use the existing app if it is already installed. Importing a local file does not update the existing server automatically. The saved draft may differ from the server's current draft or published version.
-2. Configure the model provider and tools used by the workflow, including search, image generation, file tools, and GitHub Pages hosting. The YAML lists marketplace dependencies, but provider credentials and server-specific configuration must be supplied in Dify. Review the hosting target before running: a run can overwrite its page.
+1. Obtain access to a Dify instance and import `production.yml` through its app import interface, or use the existing app if it is already installed. Importing a local file does not update the existing app automatically. Later server changes are not automatically reflected in the saved copy.
+2. Configure local Ollama models or another Dify-supported commercial model provider, and select suitable models in the workflow. Configure its tools, including search, image generation, file tools, GitHub Pages hosting, and the email plugin. Supply provider credentials in Dify. In the email node, replace the placeholder recipient and reply-to addresses, and update the email body links if the hosting destination changes. Review the hosting target and recipients before running: a run can overwrite the page and send email.
 3. In Dify, run the draft with an as-of date in `YYYY-MM-DD` format and a research window from 1 to 31 days. Review the output and independently check its sources, claims, links, and rendered page. The human developer performs Dify workflow tests.
 4. When the workflow is ready for scheduled use, publish it in Dify and create an app API key. Dagster calls the **published** version, not the draft.
 
-> ⚠️ The draft's **Testing mode (placeholder website)** uses fewer search results and produces a clearly marked placeholder. It still calls models and the image tool, and its hosting step can replace the configured page. Enable it only when that side effect is acceptable.
+> ⚠️ **Testing mode (placeholder website)** uses fewer search results and produces a clearly marked placeholder. It still calls models and the image tool, can replace the configured page, and can send email. Enable it only when those side effects are acceptable.
 
 ## 🎨 Set up image generation
 
@@ -69,8 +69,8 @@ Open the local Dagster UI at the address printed by the command. Enable `weekly_
 Run these from the project root. The Dagster tests require the dependencies installed above; the storage tests use Python's standard library.
 
 ```bash
-python -m unittest discover -s dagster -p 'test*.py'
-python -m unittest discover -s difyctl/weekly-research-and-knowledge-publishing/storage_nodes -p 'test*.py'
+python3 -m unittest discover -s dagster -p 'test*.py'
+python3 -m unittest discover -s difyctl/weekly-research-and-knowledge-publishing/storage_nodes -p 'test*.py'
 ```
 
 These checks do not exercise Dify, its plugins, GitHub Pages, or the published workflow.
