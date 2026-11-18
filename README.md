@@ -4,8 +4,8 @@ This capstone project for the **Carnegie Mellon University Agentic AI Program** 
 
 The main workflow brings together four research and publishing stages:
 
-- 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links. It checks available publication dates against the inclusive research window and flags missing, uncertain or out-of-window dates.
-- 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and flags date issues, contradictions, uncertainty and missing evidence. It looks for original-source evidence and secondary corroboration when supplied, but labels snippet-based material as unverified.
+- 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links.
+- 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
 - ✍️ **Content agent** uses the reviewed research and its search tool to find sources and write the editorial content. It seeks original sources and credible secondary corroboration, attributes findings, and distinguishes preliminary research from established results. It can widen the search to 30 days if coverage is insufficient.
 - 🎨 **Website Creation Agent** turns the editorial content into a single-page HTML publication, preserving its factual content, uncertainty and source links. It can use the ComfyUI image-generation tool to create illustrations.
 
@@ -15,6 +15,22 @@ The workflow searches public sources across five topics, uses research and valid
 
 The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It also returns the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node. Separate development work explores storing research sources in a knowledge base.
 
+## 📋 Capstone design checklist
+
+- [x] Research recent public developments in AI, science, healthcare, astronomy and technology.
+- [x] Evaluate search results and review claims against the supplied snippets.
+- [ ] Retrieve additional evidence and independently validate important claims.
+- [x] Generate a weekly web publication with written content, source links and image-generation support.
+- [x] Check the generated HTML structure and source links before publishing.
+- [x] Verify the website for technical errors and inconsistencies.
+- [x] Publish to GitHub Pages and send an email notification after hosting.
+- [x] Pass research, review and generated content between workflow stages during a run.
+- [ ] Add a bounded feedback loop that uses observations to request additional research and correct problems.
+- [ ] Optionally retain published topics, sources and reader preferences between runs, including likes.
+- [x] Schedule weekly runs.
+
+Independent validation and long-term memory remain goals; snippet review does not establish that claims are verified.
+
 ## 🛡️ Safety checkpoint
 
 Checked items are implemented in the saved workflow or scheduler; unchecked items are incomplete or not yet verified. Prompts and snippet checks alone do not guarantee compliance.
@@ -22,14 +38,29 @@ Checked items are implemented in the saved workflow or scheduler; unchecked item
 - [x] Search public results and instruct agents to treat retrieved text as untrusted data.
 - [x] Check generated HTML structure and source links before creating the publication.
 - [x] Log scheduled workflow progress and failures, including the Dify run ID.
-- [x] Check source dates, credibility and relevance, prioritizing original research and reputable secondary sources.
-- [x] Validate claims against original sources, seek secondary corroboration when available, and identify contradictions, uncertainty and missing evidence.
+- [x] Instruct the content agent to prioritize credible, relevant sources and preserve publication dates.
+- [ ] Verify important claims against two independent trusted sources; the validation agent reviews search snippets, which do not independently verify claims.
 - [ ] Use RAG to retrieve supporting evidence and preserve source references.
-- [x] Generate only from validated findings, retain scientific context and limitations, and ensure factual claims have traceable citations.
+- [ ] Generate only from independently validated findings; the content agent can also search for additional developments.
 - [x] Apply editorial checks for factual consistency, completeness and clarity.
 
 
 These targets will be refined through evaluation. 
+
+## 🤝 Agent coordination plan
+
+Checked items are present in the saved workflow or scheduler; agent instructions are not guarantees of the resulting output.
+
+- [x] Search public sources and select useful results across the five research topics.
+- [x] Review selected research against supplied search results and pass the review to the content agent.
+- [ ] Download research documents and ingest their contents, embeddings and metadata into a vector database.
+- [ ] Retrieve evidence with RAG and verify important claims against two independent trusted sources.
+- [ ] Request additional research from the validation stage when evidence is insufficient, with a bounded feedback loop.
+- [x] Generate a lead article, supporting articles and source links, then create a visual concept and website.
+- [x] Check website structure and source links, deploy to GitHub Pages, and run the email notification after hosting.
+- [x] Schedule the published workflow weekly with Dagster.
+
+The saved workflow has a separate website creation agent in addition to the research, validation and content stages. Its validation is based on snippets; independent verification and knowledge-base integration remain goals.
 
 ## 📂 What is in this repository
 
