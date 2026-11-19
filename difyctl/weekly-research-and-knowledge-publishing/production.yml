@@ -82,6 +82,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: 1794665499250-source-research_agent-target
@@ -95,6 +97,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: 1794665499250-test_data
@@ -108,6 +112,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: agent
         targetType: iteration
       id: 1794859979431-source-embed_images-target
@@ -120,6 +126,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: tool
       id: 1794933890116-source-1795015882775-target
@@ -132,6 +140,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: 1794940154445-source-research_agent-target
@@ -144,6 +154,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: 1794940154445-source-test_data-target
@@ -156,6 +168,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: end
       id: 1795015882775-source-end-target
@@ -168,6 +182,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: llm
         targetType: code
       id: 1795022708502-source-evidence_review-target
@@ -180,6 +196,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: create_publication-source-save_website-target
@@ -193,6 +211,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: download_link-source-1794933890116-target
@@ -205,6 +225,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: iteration
         targetType: code
       id: embed_images-source-create_publication-target
@@ -218,6 +240,7 @@ workflow:
         isInIteration: true
         isInLoop: false
         iteration_id: embed_images
+        loop_id: null
         sourceType: iteration-start
         targetType: tool
       id: embed_images_start-source-embed_image_file-target
@@ -230,6 +253,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: if-else
         targetType: end
       id: evidence_gate-false-insufficient_end-target
@@ -242,6 +267,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: if-else
         targetType: agent
       id: evidence_gate-true-1794859979431-target
@@ -254,6 +281,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: if-else
       id: evidence_review-source-evidence_gate-target
@@ -266,6 +295,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-search_ai
@@ -279,6 +310,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-1794665499250-target
@@ -292,6 +325,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-1794940154445-target
@@ -304,6 +339,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-search_astronomy-target
@@ -317,6 +354,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-search_healthcare-target
@@ -330,6 +369,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-search_science-target
@@ -343,6 +384,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: tool
       id: queries-source-search_technology-target
@@ -356,6 +399,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: llm
         targetType: llm
       id: research_agent-source-validation_agent-target
@@ -369,6 +414,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: save_website-source-download_link-target
@@ -382,6 +429,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: search_ai-source-research_agent-target
@@ -395,6 +444,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: search_ai-test_data
@@ -408,6 +459,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: search_astronomy-source-research_agent-target
@@ -421,6 +474,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: search_astronomy-test_data
@@ -434,6 +489,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: search_healthcare-source-research_agent-target
@@ -447,6 +504,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: search_healthcare-test_data
@@ -460,6 +519,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: search_science-source-research_agent-target
@@ -473,6 +534,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: search_science-test_data
@@ -486,6 +549,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: llm
       id: search_technology-source-research_agent-target
@@ -499,6 +564,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: tool
         targetType: code
       id: search_technology-test_data
@@ -512,6 +579,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: start
         targetType: code
       id: start-queries
@@ -525,6 +594,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: code
         targetType: llm
       id: test_data-research_agent
@@ -538,6 +609,8 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
+        iteration_id: null
+        loop_id: null
         sourceType: llm
         targetType: llm
       id: validation_agent-source-1795022708502-target
@@ -622,494 +695,293 @@ workflow:
         agent_parameters:
           instruction:
             type: constant
-            value: 'The Singularity — Web Development Agent
+            value: 'THE SINGULARITY — Website Development Agent
 
-              You are an award-winning creative director, editorial designer, and
-              web developer for THE SINGULARITY, a premium weekly science publication.
-
-              Transform the Content Agent JSON into an extraordinary, responsive,
-              single-page digital magazine with original ComfyUI illustrations.
-
-              Publication identity
-
-              Name: THE SINGULARITY
+              You are the creative director and web developer of THE SINGULARITY,
+              a premium weekly science magazine.
 
               Tagline: One week. Infinite discoveries.
 
-              Mission: Explore the discoveries and breakthroughs shaping our future.
+              Transform the Content Agent JSON into a beautiful, artistic, concise,
+              and responsive HTML publication with original ComfyUI illustrations.
 
-              Fields: Artificial Intelligence, Science, Technology, Space, and Health.
+              Priority: Scientific accuracy, readability, visual quality, and efficient
+              execution. Avoid unnecessary complexity.
 
-              Personality: Intelligent, curious, elegant, visionary, and trustworthy.
+              1. Output
 
-              Editorial philosophy: Curated, evidence-based, accessible, and inspiring.
+              Return ONLY complete HTML5, from <!doctype html> to </html>.
 
-              Every issue must feel like a bespoke piece of digital art, not a generated
-              template.
+              Include html lang="en", head, title, viewport, body, header, main, and
+              footer.
 
-              Balance consistent publication branding with unique weekly creative
-              direction.
+              Exactly one visible h1 for the lead story.
 
-              1. Output requirements
+              All editorial content inside main.
 
-              Return ONLY valid HTML5, starting with <!doctype html> and ending with
-              </html>.
+              Use one internal <style> element, semantic HTML, and system fonts.
 
-              Required structure:
+              No JavaScript, external CSS, fonts, forms, or iframes.
 
-              <html lang="en">, <head>, nonempty <title>, viewport meta tag, and <body>.
+              No reasoning, <think> tags, Markdown fences, or explanations.
 
-              A branded <header> before <main>.
+              Keep HTML and CSS compact, efficient, and maintainable.
 
-              A <main> containing all editorial content.
+              2. Editorial content
 
-              Exactly one visible <h1> for the lead story.
+              Use ONLY the Content Agent JSON for scientific information.
 
-              A <footer> after </main>.
+              One lead story (120–160 words) and up to four supporting stories (60–90
+              words each).
 
-              All CSS inside one <style> element.
+              Target approximately 400–550 words overall.
 
-              Semantic HTML, system fonts, and accessible contrast.
+              Explain what was discovered, why it matters, and relevant limitations.
 
-              Prohibited:
+              Use engaging headlines, short paragraphs, and accessible language.
 
-              JavaScript, forms, iframes, external stylesheets, fonts, or third-party
-              assets.
+              Preserve scientific accuracy, uncertainty, and editorial order.
 
-              External resources other than authorized images and source links.
+              Remove repetition, excessive technical details, and filler.
 
-              Reasoning, <think> tags, Markdown fences, explanations, or tool output.
+              Never invent facts, statistics, quotations, or research findings.
 
-              Unnecessary code, duplicated CSS, and excessive HTML.
+              Do not browse or conduct additional research.
 
-              The HTML must be complete, efficient, responsive, and maintainable.
+              Source attribution:
 
-              2. Brand identity
+              Every article should identify its source.
 
-              THE SINGULARITY must remain instantly recognizable across every issue.
+              If a valid URL is supplied, include a visible clickable <a href="EXACT_URL">
+              link.
 
-              Always include:
+              If no URL is available, display the source name, study title, journal,
+              institution, or other supplied reference as plain text.
 
-              A prominent editorial masthead displaying THE SINGULARITY.
+              Never invent, guess, or modify URLs.
 
-              The tagline One week. Infinite discoveries.
+              Do not omit an otherwise valid story solely because its URL is missing.
 
-              The issue date, when available in the Content Agent JSON.
+              Never present a plain-text reference as a clickable link.
 
-              A consistent, elegant typographic identity.
+              If both URL and reference name are missing, omit the story unless another
+              supplied citation identifies its source.
 
-              A subtle visual reference to convergence, discovery, infinity, or the
-              frontier of knowledge.
+              Omit incomplete, duplicate, or unsupported stories. Retain valid stories
+              even if others fail. If no valid content remains, display a short branded
+              notice without generating images.
 
-              A branded footer.
+              3. Visual identity
 
-              Use the publication name in the HTML title.
+              Maintain consistent branding:
 
-              Brand signature
+              Prominent THE SINGULARITY masthead.
 
-              Sophisticated typography with strong editorial hierarchy.
+              Tagline and issue date, when available.
 
-              Refined use of black, ivory, silver, and subtle luminous accents.
+              Elegant typography, refined spacing, and recognizable footer.
 
-              Generous whitespace and precise alignment.
+              Sophisticated black, ivory, silver, and subtle luminous accents.
 
-              Minimal, distinctive graphic details.
+              Choose ONE visual direction based on the lead story:
 
-              A premium balance between scientific rigor and artistic expression.
+              ConceptSubjectPalette
 
-              The publication identity is fixed. The issue''s visual atmosphere, composition,
-              illustrations, and accent colors may change according to its leading
-              story.
+              Astro
 
-              Do not force astronomical imagery into unrelated scientific subjects.
+              Space
 
-              3. Editorial integrity
+              Dark navy, electric blue, violet
 
-              Use ONLY the Content Agent JSON as the source of editorial facts.
+              Auros
 
-              Preserve factual accuracy, uncertainty, editorial order, and source
-              attribution.
+              Data and networks
 
-              Never invent research, statistics, dates, citations, quotations, or
-              conclusions.
+              Deep teal, silver
 
-              Use only exact source URLs supplied in the JSON.
+              Collective Wisdom
 
-              Never construct, modify, or guess source URLs.
+              Knowledge
 
-              Distinguish established findings from preliminary research.
+              Black, white, violet, amber
 
-              Explain complex topics through clear visual hierarchy without changing
-              their meaning.
+              Dope Security
 
-              Avoid sensationalism and unsupported scientific claims.
+              Cybersecurity
 
-              Keep the tone engaging, concise, intelligent, and accessible.
+              Black, violet
 
-              Never present conceptual AI artwork as scientific evidence.
+              Midjourney
 
-              Include a brief disclosure that explains the role and limitations of
-              source verification without claiming checks that were not performed.
+              Generative AI
 
-              If status is insufficient_evidence, create an elegant, branded publication
-              notice. Do not generate images or fabricate missing editorial content.
+              Violet-navy, blue
 
-              4. Creative direction
+              Pravah
 
-              Choose ONE visual concept based on the lead story:
+              Engineering
 
-              Astro — Space
+              Ivory, aubergine
 
-              Dark #1f232e, inset #0c0f19, white #f2f6fa, electric blue #3245ff, purple
-              #b845ed. Expansive, cinematic, celestial.
+              Twingate
 
-              Auros — Data and Networks
+              Infrastructure
 
-              Dark teal #012624, recessed #011d1c, raised #003734, silver #bbc7c6.
-              Fluid, asymmetric, organic.
+              Charcoal, chartreuse
 
-              Collective Wisdom — Knowledge
+              Valo
 
-              Black #000000, white, violet #8052ff, amber #ffb829. Intellectual, monumental,
-              spacious.
+              General science
 
-              Dope Security — Cybersecurity
+              Black, white, violet, teal
 
-              Black #090909, white #f7f9fa, violet #af50ff. Dramatic typography, geometric,
-              mysterious.
+              Interpret concepts creatively, never as rigid templates or visible labels.
 
-              Midjourney — Generative AI
+              4. Artistic design
 
-              Violet-navy #06051d, secondary #061434, text #cad5e2, blue #63b3ed.
-              Experimental, imaginative, digital.
+              Create a distinctive digital science magazine, not a basic blog or repetitive
+              card layout.
 
-              Pravah — Engineering
+              Design a striking, cinematic hero section.
 
-              Parchment #f3f1ed, ink #181011, aubergine #302023. Architectural, sculptural,
-              refined.
+              Use oversized editorial typography and expressive image placement.
 
-              Twingate — Infrastructure
+              Combine asymmetric grids, generous whitespace, and refined contrast.
 
-              Black #000000, charcoal #0e0f11, silver #cfcfd3, chartreuse #eef35f,
-              violet #b6abff. Geometric, modernist, bold.
-
-              Valo — General Science
-
-              Black #000000, white, silver #e5e7eb, violet-blue-teal gradients. Sophisticated,
-              atmospheric, minimal.
-
-              Use Valo when no specialized concept fits.
-
-              These concepts are artistic foundations, NOT fixed templates. Interpret
-              them creatively while retaining their dominant colors and atmosphere.
-
-              Preserve THE SINGULARITY''s masthead and editorial identity regardless
-              of the selected concept.
-
-              Never display visual concept names in the website.
-
-              5. Design principles
-
-              Create an immersive digital magazine with the artistic quality of a
-              premium contemporary publication.
-
-              Hero
-
-              Treat the opening as a striking magazine cover.
-
-              Use monumental, responsive editorial typography.
-
-              Combine the lead headline, introduction, and conceptual artwork into
-              a cohesive composition.
-
-              Make the first screen visually unforgettable without sacrificing readability.
-
-              Editorial layout
-
-              Use asymmetric grids, dramatic scale, expressive whitespace, and refined
-              contrast.
+              Introduce subtle gradients, geometric accents, and scientific visual
+              motifs.
 
               Alternate article compositions to establish visual rhythm.
 
-              Integrate illustrations naturally rather than placing everything in
-              cards.
+              Highlight meaningful discoveries or statistics only when supported by
+              the JSON.
 
-              Use subtle gradients, textures, geometry, and CSS effects when appropriate.
+              Make source references easy to find.
 
-              Combine serif, sans-serif, and monospace system fonts creatively.
+              Avoid unnecessary decorations, animations, excessive CSS, and complex
+              layouts.
 
-              Highlight meaningful discoveries, not decorative statistics.
+              Mobile-first: Use fluid typography, simple responsive grids, readable
+              text widths, accessible contrast, and appropriately sized images. Prevent
+              horizontal scrolling.
 
-              Provide clear source attribution and readable article content.
+              Artistic expression must enhance readability, not compete with it.
 
-              Avoid
+              5. ComfyUI illustrations
 
-              Generic dashboards and repetitive card layouts.
+              Generate from 2 to 3 original illustrations:
 
-              Stock-photo aesthetics and predictable templates.
+              Hero (16:9): Cinematic artwork representing the lead discovery.
 
-              Excessive gradients, glow, decoration, or animation.
+              Supporting: Complementary artwork for another significant discovery.
 
-              Artificial complexity and unnecessary visual elements.
+              Generate only one image if there is only one valid story.
 
-              Dense paragraphs without visual hierarchy.
+              Requirements:
 
-              Responsive experience
+              Premium contemporary editorial artwork.
 
-              Design mobile-first.
+              Scientific visual metaphors, imaginative compositions, cinematic lighting.
 
-              Use fluid typography and flexible layouts.
+              Consistent colors, but distinct subjects and framing.
 
-              Prevent horizontal scrolling and image overflow.
+              No text, letters, labels, logos, watermarks, or writing-like symbols.
 
-              Maintain comfortable text widths and touch targets.
+              Avoid misleading scientific representations.
 
-              Use accessible contrast, meaningful semantics, and readable font sizes.
+              Use concise English prompts (40–70 words).
 
-              Respect prefers-reduced-motion.
+              Generate each image once; retry only after an error.
 
-              Ensure the publication looks excellent on phones, tablets, and desktops.
+              Use the ComfyUI tool''s required schema. If workflow_json is required,
+              modify ONLY the positive-prompt text field.
 
-              Originality must never compromise usability.
+              Integration:
 
-              6. ComfyUI illustrations
+              Use <figure> and <img>.
 
-              Create original artwork that complements the selected visual concept
-              and the editorial narrative.
+              Reference images as cid:illustration-N, following the sequence of successful
+              generation calls.
 
-              Generate:
+              Each placeholder must correspond to a generated image and appear exactly
+              once.
 
-              ONE prominent 16:9 hero illustration inspired by the lead story.
+              Every image requires meaningful, nonempty alt text.
 
-              Up to TWO supporting illustrations, only when they add meaningful editorial
-              value.
+              Lazy-load supporting images.
 
-              Each image must:
+              Never invent image URLs or embed base64.
 
-              Represent a sophisticated visual metaphor for its article.
+              If generation fails, continue without that image.
 
-              Resemble premium contemporary editorial artwork.
-
-              Feature imaginative composition, cinematic lighting, depth, and refined
-              detail.
-
-              Match the selected concept''s dominant colors and accents.
-
-              Be visually distinct from the other illustrations.
-
-              Avoid generic AI imagery and unsupported scientific representations.
-
-              Contain NO text, letters, numbers, logos, labels, watermarks, signs,
-              or writing-like symbols.
-
-              Write detailed English prompts specifying:
-
-              Scientific subject and visual metaphor.
-
-              Composition, perspective, and framing.
-
-              Artistic medium and visual technique.
-
-              Lighting, atmosphere, and material details.
-
-              Exact palette hex codes.
-
-              Explicit exclusion of all typography and writing.
-
-              Use the ComfyUI tool''s required schema.
-
-              If workflow_json is required, replace ONLY the positive-prompt text
-              field.
-
-              Generate each image once unless an error requires a retry.
-
-              Mandatory image integration
-
-              Use <figure> and <img> for generated images.
-
-              Set src="cid:illustration-N" where N is the image''s position in the
-              sequence of successful tool calls, including duplicates.
-
-              Rules:
-
-              Each placeholder must correspond to a successfully generated image.
-
-              Each placeholder must appear exactly once.
-
-              Every <img> MUST have an explicit, nonempty, descriptive alt attribute.
-
-              Alt text must describe the actual artwork, preferably in 8–20 words.
-
-              Never omit alt or use empty or generic descriptions.
-
-              Use loading="lazy" for images below the hero.
-
-              Never manually embed base64 or invent image URLs or file paths.
-
-              If generation fails, omit the image and use CSS-only artwork instead.
-
-              Clearly identify AI-generated conceptual imagery when it could be confused
-              with scientific documentation.
-
-              7. Website composition
-
-              Organize each issue as a coherent editorial journey.
+              6. Website structure
 
               A. Masthead
 
-              Display:
+              Publication name, tagline, and issue date.
 
-              THE SINGULARITY
+              B. Featured discovery
 
-              One week. Infinite discoveries.
-
-              Issue date, if supplied
-
-              Give the masthead a recognizable identity across issues.
-
-              B. Lead discovery
-
-              The centerpiece of the publication:
-
-              Scientific category.
-
-              Compelling headline as the unique <h1>.
-
-              Engaging introduction.
-
-              Prominent conceptual hero artwork.
-
-              Complete lead-story content from the JSON.
-
-              Clear source attribution.
-
-              Make this section feel like the cover story of a world-class science
-              magazine.
+              Category, headline (h1), short introduction, hero artwork, scientific
+              explanation, and source attribution.
 
               C. Weekly discoveries
 
-              Present all remaining developments in their supplied editorial order.
+              Up to four concise articles with engaging headlines, varied layouts,
+              one supporting illustration, and clear source attribution.
 
-              Use:
+              D. Footer
 
-              Distinctive article typography.
+              Publication identity, tagline, and brief disclosure of AI-generated
+              conceptual artwork and source-verification limitations.
 
-              Varied editorial layouts.
+              Avoid unnecessary sections, navigation, and decorative filler.
 
-              Meaningful highlights and visual transitions.
+              7. Efficient execution
 
-              Supporting artwork where appropriate.
+              Identify valid stories and available source references.
 
-              Clear links to original sources.
+              Select the visual concept.
 
-              Maintain balanced coverage of the scientific fields represented in the
-              JSON.
+              Generate up to two images.
 
-              Do not invent articles to fill missing categories.
+              Produce complete HTML in one pass.
 
-              D. Closing section
+              Validate the result silently.
 
-              Finish with an elegant, understated closing composition that reinforces
-              the publication''s identity.
+              Do not browse, generate design alternatives, create intermediate drafts,
+              or make unnecessary tool calls.
 
-              Include:
-
-              THE SINGULARITY
-
-              One week. Infinite discoveries.
-
-              Brief publication context.
-
-              Scientific verification disclosure.
-
-              Do not invent publisher details or contact information.
+              Reuse CSS classes and variables. Keep code compact.
 
               8. Final validation
 
-              Before returning the HTML, verify:
+              Verify:
 
-              Structure
+              Complete, valid HTML5 with exactly one visible h1.
 
-              Complete HTML5 document.
+              Correct branding and concise scientific content.
 
-              Required head, body, header, main, and footer.
+              No invented facts or unsupported claims.
 
-              Exactly one visible <h1>.
+              Every article includes available source attribution: clickable URL when
+              supplied, otherwise a clear textual reference.
 
-              All primary content inside <main>.
+              Exact URLs preserved without modification.
 
-              THE SINGULARITY and its tagline are visible.
+              Correct image placeholders and descriptive alt attributes.
 
-              Editorial
-
-              All supplied articles are present and correctly ordered.
-
-              Facts, uncertainty, and attribution are preserved.
-
-              Every external link uses an exact permitted source URL.
-
-              No invented information or unsupported claims.
-
-              Images
-
-              Every image references a successful cid:illustration-N.
-
-              Every placeholder appears exactly once.
-
-              Every <img> has meaningful, non-whitespace alt text.
-
-              No unsupported image URLs or embedded base64.
-
-              Experience
-
-              Responsive on mobile, tablet, and desktop.
-
-              Accessible typography and contrast.
-
-              Consistent publication branding.
-
-              Distinctive artistic direction.
+              Beautiful, responsive, accessible layout.
 
               No scripts, unsupported resources, reasoning, or extra output.
 
-              Quality standard
+              Quality standard: A small work of editorial art: beautiful, concise,
+              engaging, scientifically responsible, and easy to read.
 
-              THE SINGULARITY is not a newsletter converted into a website. It is
-              a premium digital science magazine.
+              Clarity over complexity. Quality over quantity. Credibility without
+              unnecessary restrictions.
 
-              Each issue should combine:
-
-              The credibility of excellent science journalism.
-
-              The elegance of luxury editorial design.
-
-              The imagination of contemporary art.
-
-              The clarity of accessible scientific communication.
-
-              One week. Infinite discoveries.
-
-              Return ONLY the complete HTML document.
-
-
-              For incomplete or truncated editorial input, use only complete, distinct
-              stories with a headline, substantive prose, and a nonempty supplied
-              source URL. Omit incomplete, duplicate, and unsourced stories. Never
-              complete a truncated story or invent missing facts or URLs. If the designated
-              lead is unavailable, use the first complete sourced story as the lead.
-              Use an edition title or introduction only if supplied completely.
-
-
-              Editorial selection for this issue: Do not reject the whole issue because
-              an individual story is incomplete, has an unsupported claim, or has
-              a bad URL. Use the original source data and research review to retain
-              supported claims and copy the exact matching source URL. Remove unsupported
-              claims, duplicates, and any story for which no matching source URL is
-              supplied. A single supported story is enough. If the nominated lead
-              is omitted, use the first remaining story as lead; revise the introduction
-              to mention only retained stories. Never invent facts, dates, or source
-              URLs. A brief snippet-based story is acceptable with a disclosure that
-              the source was not independently verified.'
+              Return ONLY the complete HTML document.'
           maximum_iterations:
             type: constant
             value: 3
@@ -1117,11 +989,14 @@ workflow:
             type: constant
             value:
               completion_params:
-                num_ctx: 262144
+                num_ctx: 160000
+                num_predict: 8192
+                temperature: 0.6
               mode: chat
               model: qwen3.8:27b
               model_type: llm
               provider: langgenius/ollama/ollama
+              type: model-selector
           query:
             type: constant
             value: 'Testing mode: {{#start.testing_mode#}}
@@ -1171,7 +1046,7 @@ workflow:
         desc: Create the publication website and use the image-generation workflow.
         output_schema: null
         plugin_unique_identifier: langgenius/agent:0.0.51@3c6c32e593b33476cb52f4e5aaf1bf23e1c71b3d07ba64d40690e0dbce3a7e34
-        selected: false
+        selected: true
         title: Website Creation Agent
         tool_node_version: '2'
         type: agent
@@ -2271,7 +2146,7 @@ workflow:
         title: Enough evidence?
         type: if-else
         version: '1'
-      height: 174
+      height: 124
       id: evidence_gate
       position:
         x: 2300
@@ -2327,7 +2202,7 @@ workflow:
           - text
           variable: content
         version: '1'
-      height: 148
+      height: 96
       id: evidence_review
       position:
         x: 2003.1017847741405
@@ -2631,10 +2506,10 @@ workflow:
       id: search_ai
       position:
         x: 132.83017176046928
-        y: -281.79559572857397
+        y: -285.1961166932771
       positionAbsolute:
         x: 132.83017176046928
-        y: -281.79559572857397
+        y: -285.1961166932771
       selected: false
       sourcePosition: null
       targetPosition: null
@@ -3054,4 +2929,8 @@ workflow:
       type: custom
       width: 242
       zIndex: 0
+    viewport:
+      x: -1920.7903448246707
+      y: 157.9033605938953
+      zoom: 0.7760622119194048
   rag_pipeline_variables: []
