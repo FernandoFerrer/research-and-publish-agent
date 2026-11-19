@@ -6,18 +6,19 @@ The project was created using only local LLMs and local computing resources, wit
 
 Local model execution does not mean the whole workflow is offline: it searches public internet sources, publishes to GitHub Pages, and sends email through configured services. Dify orchestrates the workflow, Ollama serves the language models, ComfyUI generates images, and Dagster optionally schedules runs.
 
-The main workflow brings together four research and publishing stages:
+The main workflow brings together five research and publishing stages:
 
 - 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links.
 - 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
 - ✍️ **Content editor** writes articles from the research agent’s supplied evidence, using its source links and distinguishing preliminary research from established results. Its prompt permits developments up to 30 days old when necessary; it does not conduct additional searches.
+- 🛑 **Evidence review** checks whether the content is ready to publish. An LLM assesses completeness and sources, and a separate condition blocks content containing `insufficient_evidence`.
 - 🎨 **Website Creation Agent** turns the editorial content into a single-page HTML publication, preserving its factual content, uncertainty and source links. It can use the ComfyUI image-generation tool to create illustrations.
 
 ## 📍 Current status
 
 The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets. Its review is not passed to the content editor, which receives the research agent’s output directly.
 
-The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It returns the public page URL and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node. Separate development work explores storing research sources in a knowledge base.
+When the evidence review does not approve the content, the workflow ends with the content in `skipped_content`, before website creation, hosting or email. An approved issue is hosted on GitHub Pages, then the email tool notifies recipients. That branch returns the public page URL and a temporary download URL that can be opened on the same Dify site. A skipped publication is a successful workflow completion, so Dagster reports it as successful. The LLM review can make mistakes and does not independently verify sources. Separate development work explores storing research sources in a knowledge base.
 
 ## 📋 Capstone design checklist
 
@@ -26,6 +27,7 @@ The latest tested production workflow hosts the generated page on GitHub Pages, 
 - [ ] Retrieve additional evidence and independently validate important claims.
 - [x] Generate a weekly web publication with written content, source links and image-generation support.
 - [x] Check the generated HTML structure and source links before publishing.
+- [x] Stop before website creation and email when the evidence review does not approve the content.
 - [x] Verify the website for technical errors and inconsistencies.
 - [x] Publish to GitHub Pages and send an email notification after hosting.
 - [x] Pass research and generated content between workflow stages during a run.

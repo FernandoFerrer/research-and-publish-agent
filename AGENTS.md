@@ -4,7 +4,7 @@
 Build a simple, reliable weekly research and publishing system covering AI, science, healthcare, astronomy, and technology. Use public information only. Publish to GitHub Pages and notify by email.
 
 ## Current Status
-- **Dify publishing workflow:** The latest tested production version researches public search results, reviews claims against snippets, writes sourced content, generates a single-page HTML publication, hosts it on GitHub Pages, and sends an email. The website agent can use the separate ComfyUI image-generation workflow. Testing mode can still overwrite the configured page and send email.
+- **Dify publishing workflow:** The latest tested production version researches public search results, reviews claims against snippets, and writes sourced content. An LLM evidence review and a condition stop insufficient content before website creation, hosting, and email; a skipped publication is a successful workflow completion. Approved content becomes a single-page HTML publication hosted on GitHub Pages, followed by email. The website agent can use the separate ComfyUI image-generation workflow. Testing mode can still overwrite the configured page and send email.
 - **Models:** The workflow works with local Ollama models and can be configured for other commercial model providers supported by Dify.
 - **Validation is limited:** Search snippets are not independent verification. RAG and verification against two independent trusted sources remain goals, not established behavior.
 - **Knowledge-base storage:** Plans and Python node code explore source ingestion and deduplication. Integration and indexing checks remain outstanding; this is not part of the saved publishing workflow.
