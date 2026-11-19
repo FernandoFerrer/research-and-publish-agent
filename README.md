@@ -2,18 +2,22 @@
 
 This capstone project for the **Carnegie Mellon University Agentic AI Program** aims to produce a weekly digest of public research about AI, science, healthcare, astronomy, and technology. Dify runs the research and website-generation workflow; Dagster can start its published version on a schedule. The workflow works with local Ollama models and can also be configured to use commercial model providers supported by Dify.
 
+The project was created using only local LLMs and local computing resources, with zero tokens consumed from consumer-grade LLM providers. The saved workflow uses local models through Ollama, and ComfyUI runs image generation locally. Dify-supported commercial model providers are optional; using one would consume that provider's tokens.
+
+Local model execution does not mean the whole workflow is offline: it searches public internet sources, publishes to GitHub Pages, and sends email through configured services. Dify orchestrates the workflow, Ollama serves the language models, ComfyUI generates images, and Dagster optionally schedules runs.
+
 The main workflow brings together four research and publishing stages:
 
 - 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links.
 - 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
-- ✍️ **Content agent** uses the reviewed research and its search tool to find sources and write the editorial content. It seeks original sources and credible secondary corroboration, attributes findings, and distinguishes preliminary research from established results. It can widen the search to 30 days if coverage is insufficient.
+- ✍️ **Content editor** writes articles from the research agent’s supplied evidence, using its source links and distinguishing preliminary research from established results. Its prompt permits developments up to 30 days old when necessary; it does not conduct additional searches.
 - 🎨 **Website Creation Agent** turns the editorial content into a single-page HTML publication, preserving its factual content, uncertainty and source links. It can use the ComfyUI image-generation tool to create illustrations.
 
 ## 📍 Current status
 
-The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets.
+The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets. Its review is not passed to the content editor, which receives the research agent’s output directly.
 
-The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It also returns the HTML, a downloadable file, and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node. Separate development work explores storing research sources in a knowledge base.
+The latest tested production workflow hosts the generated page on GitHub Pages, then runs an email tool to notify recipients. It returns the public page URL and a temporary download URL that can be opened on the same Dify site. The hosting and email steps depend on their Dify plugin configuration; the email follows the hosting node. Separate development work explores storing research sources in a knowledge base.
 
 ## 📋 Capstone design checklist
 
@@ -24,7 +28,7 @@ The latest tested production workflow hosts the generated page on GitHub Pages, 
 - [x] Check the generated HTML structure and source links before publishing.
 - [x] Verify the website for technical errors and inconsistencies.
 - [x] Publish to GitHub Pages and send an email notification after hosting.
-- [x] Pass research, review and generated content between workflow stages during a run.
+- [x] Pass research and generated content between workflow stages during a run.
 - [ ] Add a bounded feedback loop that uses observations to request additional research and correct problems.
 - [ ] Optionally retain published topics, sources and reader preferences between runs, including likes.
 - [x] Schedule weekly runs.
@@ -41,7 +45,7 @@ Checked items are implemented in the saved workflow or scheduler; unchecked item
 - [x] Instruct the content agent to prioritize credible, relevant sources and preserve publication dates.
 - [ ] Verify important claims against two independent trusted sources; the validation agent reviews search snippets, which do not independently verify claims.
 - [ ] Use RAG to retrieve supporting evidence and preserve source references.
-- [ ] Generate only from independently validated findings; the content agent can also search for additional developments.
+- [ ] Generate only from independently validated findings; the content editor uses the supplied research rather than independently validated findings.
 - [x] Apply editorial checks for factual consistency, completeness and clarity.
 
 
@@ -52,7 +56,7 @@ These targets will be refined through evaluation.
 Checked items are present in the saved workflow or scheduler; agent instructions are not guarantees of the resulting output.
 
 - [x] Search public sources and select useful results across the five research topics.
-- [x] Review selected research against supplied search results and pass the review to the content agent.
+- [x] Review selected research against supplied search results. The content editor receives the research agent output directly.
 - [ ] Download research documents and ingest their contents, embeddings and metadata into a vector database.
 - [ ] Retrieve evidence with RAG and verify important claims against two independent trusted sources.
 - [ ] Request additional research from the validation stage when evidence is insufficient, with a bounded feedback loop.
@@ -64,7 +68,7 @@ The saved workflow has a separate website creation agent in addition to the rese
 
 ## 📂 What is in this repository
 
-- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 18 November 2026. Recipient and reply-to addresses are placeholders. The export is not automatically synchronized with the server.
+- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 19 November 2026. Recipient and reply-to addresses are placeholders. The export is not automatically synchronized with the server.
 - `difyctl/image-generation-workflow.yml`: the published image-generation workflow used as a tool by the main workflow.
 - `dagster/`: the weekly scheduler and its tests.
 - `difyctl/weekly-research-and-knowledge-publishing/storage_nodes/`: Python code and tests for the separate knowledge-base storage work. The adjacent plans describe its intended behavior and outstanding integration checks.
@@ -74,7 +78,7 @@ The saved workflow has a separate website creation agent in addition to the rese
 
 1. Obtain access to a Dify instance and import `production.yml` through its app import interface, or use the existing app if it is already installed. Importing a local file does not update the existing app automatically. Later server changes are not automatically reflected in the saved copy.
 2. Configure local Ollama models or another Dify-supported commercial model provider, and select suitable models in the workflow. Configure its tools, including search, image generation, file tools, GitHub Pages hosting, and the email plugin. Supply provider credentials in Dify. In the email node, replace the placeholder recipient and reply-to addresses, and update the email body links if the hosting destination changes. Review the hosting target and recipients before running: a run can overwrite the page and send email.
-3. In Dify, run the draft with an as-of date in `YYYY-MM-DD` format and a research window from 1 to 31 days. Review the output and independently check its sources, claims, links, and rendered page. The human developer performs Dify workflow tests.
+3. In Dify, run the draft with an as-of date in `YYYY-MM-DD` format and a research window from 1 to 31 days. Review the output and independently check its sources, claims, links, and rendered page.
 4. When the workflow is ready for scheduled use, publish it in Dify and create an app API key. Dagster calls the **published** version, not the draft.
 
 > ⚠️ **Testing mode (placeholder website)** uses fewer search results and produces a clearly marked placeholder. It still calls models and the image tool, can replace the configured page, and can send email. Enable it only when those side effects are acceptable.
