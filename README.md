@@ -4,21 +4,35 @@ This capstone project for the **Carnegie Mellon University Agentic AI Program** 
 
 The project was created using only local LLMs and local computing resources, with zero tokens consumed from consumer-grade LLM providers. The saved workflow uses local models through Ollama, and ComfyUI runs image generation locally. Dify-supported commercial model providers are optional; using one would consume that provider's tokens.
 
+The problem is that following developments across several research fields takes time, and automatically written summaries can misstate the evidence. This project combines public search, editorial review and publishing into a repeatable weekly process while retaining links for a reader to inspect. Its snippet-based review is a screening step, not independent fact-checking.
+
 Local model execution does not mean the whole workflow is offline: it searches public internet sources, publishes to GitHub Pages, and sends email through configured services. Dify orchestrates the workflow, Ollama serves the language models, ComfyUI generates images, and Dagster optionally schedules runs.
+
+## Architecture
+
+```text
+Dagster (optional schedule) → published Dify workflow
+    → public search → research and snippet review → content editor
+    → evidence review → insufficient evidence: stop with skipped content
+                      → approved: website creation (optional ComfyUI images)
+                                  → GitHub Pages → email notification
+```
+
+Ollama or another configured model provider supplies the language models. The content editor receives the validation review and original source data.
 
 The main workflow brings together five research and publishing stages:
 
 - 🔎 **Research agent** selects public results across the five topics and summarizes their supplied snippets with exact source links.
-- 🔍 **Validation agent** compares the research with supplied results, removes unsupported claims and links, and labels snippet-based material as unverified.
-- ✍️ **Content editor** writes articles from the research agent’s supplied evidence, using its source links and distinguishing preliminary research from established results. Its prompt permits developments up to 30 days old when necessary; it does not conduct additional searches.
-- 🛑 **Evidence review** checks whether the content is ready to publish. An LLM assesses completeness and sources, and a separate condition blocks content containing `insufficient_evidence`.
+- 🔍 **Validation agent** compares research with web snippets and supplied arXiv and PubMed results, and is instructed to retain exact source links and label snippet-based evidence as unverified.
+- ✍️ **Content editor** writes articles from the validation review and supplied source data. Its prompt permits developments up to 30 days old or of uncertain date when necessary; it does not conduct additional searches.
+- 🛑 **Evidence review** checks deterministically for `ready` status and at least one complete story with a nonempty source URL. It does not verify the URL or claims.
 - 🎨 **Website Creation Agent** turns the editorial content into a single-page HTML publication, preserving its factual content, uncertainty and source links. It can use the ComfyUI image-generation tool to create illustrations.
 
 ## 📍 Current status
 
-The workflow searches public sources across five topics, uses research and validation agents to review and compare search results, and generates a single-page website with links to those results. The validation agent works with search snippets. Its review is not passed to the content editor, which receives the research agent’s output directly.
+The workflow searches public sources across five topics, reviews the results, and generates a single-page website. The content editor receives the validation agent's review and original source data. Search snippets and paper metadata do not independently verify the resulting claims, and the models may omit or invent source links.
 
-When the evidence review does not approve the content, the workflow ends with the content in `skipped_content`, before website creation, hosting or email. An approved issue is hosted on GitHub Pages, then the email tool notifies recipients. That branch returns the public page URL and a temporary download URL that can be opened on the same Dify site. A skipped publication is a successful workflow completion, so Dagster reports it as successful. The LLM review can make mistakes and does not independently verify sources. Separate development work explores storing research sources in a knowledge base.
+When the evidence review does not approve the content, the workflow ends with `skipped_content` and `review_decision`, before website creation, hosting or email. Approved content goes to the website agent, then GitHub Pages hosting and email. The website check removes complete reasoning blocks and extracts the final HTML before checking its structure and link syntax. A skipped publication is a successful workflow completion, so Dagster reports it as successful. The review does not check whether links or claims are valid; separate development work explores storing research sources in a knowledge base.
 
 ## 📋 Capstone design checklist
 
@@ -26,7 +40,7 @@ When the evidence review does not approve the content, the workflow ends with th
 - [x] Evaluate search results and review claims against the supplied snippets.
 - [ ] Retrieve additional evidence and independently validate important claims.
 - [x] Generate a weekly web publication with written content, source links and image-generation support.
-- [x] Check the generated HTML structure and source links before publishing.
+- [x] Check the generated HTML structure and source-link syntax before publishing.
 - [x] Stop before website creation and email when the evidence review does not approve the content.
 - [x] Verify the website for technical errors and inconsistencies.
 - [x] Publish to GitHub Pages and send an email notification after hosting.
@@ -42,7 +56,7 @@ Independent validation and long-term memory remain goals; snippet review does no
 Checked items are implemented in the saved workflow or scheduler; unchecked items are incomplete or not yet verified. Prompts and snippet checks alone do not guarantee compliance.
 
 - [x] Search public results and instruct agents to treat retrieved text as untrusted data.
-- [x] Check generated HTML structure and source links before creating the publication.
+- [x] Check generated HTML structure and source-link syntax before creating the publication.
 - [x] Log scheduled workflow progress and failures, including the Dify run ID.
 - [x] Instruct the content agent to prioritize credible, relevant sources and preserve publication dates.
 - [ ] Verify important claims against two independent trusted sources; the validation agent reviews search snippets, which do not independently verify claims.
@@ -58,23 +72,31 @@ These targets will be refined through evaluation.
 Checked items are present in the saved workflow or scheduler; agent instructions are not guarantees of the resulting output.
 
 - [x] Search public sources and select useful results across the five research topics.
-- [x] Review selected research against supplied search results. The content editor receives the research agent output directly.
+- [x] Review selected research against supplied search results and pass the review to the content editor.
 - [ ] Download research documents and ingest their contents, embeddings and metadata into a vector database.
 - [ ] Retrieve evidence with RAG and verify important claims against two independent trusted sources.
 - [ ] Request additional research from the validation stage when evidence is insufficient, with a bounded feedback loop.
 - [x] Generate a lead article, supporting articles and source links, then create a visual concept and website.
-- [x] Check website structure and source links, deploy to GitHub Pages, and run the email notification after hosting.
+- [x] Check website structure and source-link syntax, deploy to GitHub Pages, and run the email notification after hosting.
 - [x] Schedule the published workflow weekly with Dagster.
 
 The saved workflow has a separate website creation agent in addition to the research, validation and content stages. Its validation is based on snippets; independent verification and knowledge-base integration remain goals.
 
 ## 📂 What is in this repository
 
-- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the latest tested published workflow, exported on 19 November 2026. Recipient and reply-to addresses are placeholders. The export is not automatically synchronized with the server.
+- `difyctl/weekly-research-and-knowledge-publishing/production.yml`: safety copy of the published workflow, exported on 19 November 2026. The latest review and website-output changes have not been tested end to end. Recipient and reply-to addresses are placeholders. The export is not automatically synchronized with the server.
 - `difyctl/image-generation-workflow.yml`: the published image-generation workflow used as a tool by the main workflow.
 - `dagster/`: the weekly scheduler and its tests.
 - `difyctl/weekly-research-and-knowledge-publishing/storage_nodes/`: Python code and tests for the separate knowledge-base storage work. The adjacent plans describe its intended behavior and outstanding integration checks.
 - `website_examples/` and `website_styless/`: visual examples and design references, not the deployed website.
+
+## Review the project
+
+1. Open the [16 November 2026 example publication](website_examples/16_11_2026.html) in a browser to inspect a sample output without running the workflow. It is a historical example, not an evaluation of factual accuracy.
+2. Inspect the [saved main workflow](difyctl/weekly-research-and-knowledge-publishing/production.yml), [image workflow](difyctl/image-generation-workflow.yml), and [Dagster scheduler](dagster/definitions.py). The saved main workflow is an export, not a live view of the Dify server.
+3. Review the checklist and limitations above, then run the local checks below if the Python dependencies are available. To run the complete system, follow the setup instructions below; it requires configured external services and can publish and send email.
+
+For a manual Dify run, an example input is `as_of_date: 2026-11-16` and `window_days: 7`. Depending on the evidence review, the output is either skipped content or a published page URL and a temporary download URL. Results depend on available search results, models, and service configuration.
 
 ## 🚀 Set up the workflow
 
@@ -112,7 +134,7 @@ Edit `.env` and set `DIFY_WORKFLOW_ENDPOINT` to your Dify API base URL ending in
 dagster dev -f dagster/definitions.py
 ```
 
-Open the local Dagster UI at the address printed by the command. Enable `weekly_schedule` if it is stopped, and keep Dagster and its daemon running. The schedule starts the workflow on Mondays at 07:00 Europe/Madrid, using that day's date and a seven-day window. Check the run log for its Dify run ID and final status.
+Open the local Dagster UI at the address printed by the command. Enable `weekly_schedule` if it is stopped, and keep Dagster and its daemon running. The schedule starts the workflow on Mondays at 07:00 Europe/Madrid, using that day's date and an eight-day window. Check the run log for its Dify run ID and final status.
 
 > ⚠️ A timeout or lost stream fails the Dagster run even if Dify continues running. Check the logged run ID in Dify before retrying, and avoid concurrent workflow runs; the schedule does not enforce a global single-writer lock.
 

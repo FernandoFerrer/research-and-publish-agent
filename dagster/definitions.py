@@ -19,11 +19,11 @@ def run_dify_workflow(context):
         raise ValueError('Set DIFY_WORKFLOW_ENDPOINT and DIFY_RESEARCH_WORKFLOW_API_KEY')
 
     date = datetime.now(ZoneInfo('Europe/Madrid')).date().isoformat()
-    context.log.info('Starting Dify workflow for %s with a 7-day window', date)
+    context.log.info('Starting Dify workflow for %s with a 8-day window', date)
     with requests.post(
         f'{endpoint}/workflows/run',
         headers={'Authorization': f'Bearer {key}'},
-        json={'inputs': {'as_of_date': date, 'window_days': 7},
+        json={'inputs': {'as_of_date': date, 'window_days': 8},
               'response_mode': 'streaming', 'user': 'dagster-weekly-research'},
         stream=True, timeout=(10, 120),
     ) as response:
